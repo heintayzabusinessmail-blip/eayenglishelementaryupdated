@@ -1,0 +1,6 @@
+{
+  "name": "Final Exam by Tr Kyay Mone",
+  "description": "Elementary Class English final exam with online testing, camera monitoring, timer, audio speech synthesis, and teacher dashboard.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Exam by Tr Kyay Mone (Elementary Class)</title>
+  <meta name="description" content="Easy English with Tr. Krissy - Elementary Class Final Exam">
+  <style>
+    :root {
+      --main: #54289E;
+      --main-light: #7239cc;
+      --main-bg-tint: #54289E10;
+      --accent: #FCCC06;
+      --pass: #2E8B57;
+      --pass-bg: #2E8B5715;
+      --fail: #CC1111;
+      --fail-bg: #CC111115;
+      --bg: #f5f4fa;
+      --card: #ffffff;
+      --card-subtle: #fbfaff;
+      --text: #222230;
+      --text-muted: #66657a;
+      --border: #e2e0ed;
+      --shadow: 0 2px 18px rgba(84, 40, 158, 0.08);
+      --topbar-bg: #ffffff;
+      --radius: 14px;
+    }
+    body.dark {
+      --main: #8a57e6;
+      --main-light: #a476f5;
+      --main-bg-tint: #8a57e620;
+      --accent: #fcd736;
+      --pass: #3ec980;
+      --pass-bg: #3ec98020;
+      --fail: #f54343;
+      --fail-bg: #f5434320;
+      --bg: #13111f;
+      --card: #1d192f;
+      --card-subtle: #25203b;
+      --text: #f3f0fc;
+      --text-muted: #a39eb8;
+      --border: #322b4e;
+      --shadow: 0 4px 22px rgba(0, 0, 0, 0.45);
+      --topbar-bg: #171326;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      padding-top: 56px;
+    }
+    /* Fixed Top Bar */
+    #top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: var(--topbar-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .brand-box {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .brand-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--main);
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cam-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--border);
+      color: var(--text-muted);
+    }
+    .cam-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #888;
+    }
+    .cam-dot.active {
+      background: var(--pass);
+      box-shadow: 0 0 6px var(--pass);
+    }
+    #timer-display {
+      font-size: 15px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--main);
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--main-bg-tint);
+    }
+    #timer-display.warn {
+      color: #e67e22;
+      background: #e67e2220;
+    }
+    #timer-display.danger {
+      color: var(--fail);
+      background: var(--fail-bg);
+      animation: timerBlink 1s infinite;
+    }
+    @keyframes timerBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    .icon-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover {
+      background: var(--border);
+    }
+    #progress-container {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--border);
+      z-index: 99;
+    }
+    #progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--main);
+      transition: width 0.3s ease;
+    }
+
+    /* Container & Layout */
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+      flex: 1;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, #54289E 0%, #7B3FE4 100%);
+      color: #ffffff;
+      padding: 32px 24px;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(84, 40, 158, 0.28);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero-banner h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .hero-banner p {
+      font-size: 15px;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      transition: background-color 0.25s;
+    }
+    .grid-tiles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (min-width: 600px) {
+      .grid-tiles {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .tile-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--main);
+      margin-bottom: 4px;
+    }
+    .tile-lbl {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-easy {
+      background: #2E8B5720;
+      color: #2E8B57;
+      border: 1px solid #2E8B5740;
+    }
+    .badge-med {
+      background: #FCCC0625;
+      color: #b58900;
+      border: 1px solid #FCCC0660;
+    }
+    .badge-hard {
+      background: #CC111120;
+      color: #CC1111;
+      border: 1px solid #CC111140;
+    }
+    body.dark .badge-med {
+      color: #FCCC06;
+    }
+
+    /* Form & Inputs */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .input-text {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-text:focus {
+      border-color: var(--main);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--main);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(84, 40, 158, 0.3);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--main-light);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--card-subtle);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--main);
+      color: var(--main);
+    }
+    .btn-pass {
+      background: var(--pass);
+      color: white;
+    }
+    .btn-danger {
+      background: var(--fail);
+      color: white;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    .btn-block {
+      width: 100%;
+    }
+
+    /* Question Screen */
+    .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .q-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--main);
+    }
+    .q-stem {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      margin-bottom: 22px;
+      color: var(--text);
+    }
+    .q-gap-box {
+      display: inline-block;
+      min-width: 100px;
+      padding: 2px 14px;
+      border-bottom: 2.5px solid var(--main);
+      background: var(--main-bg-tint);
+      color: var(--main);
+      font-weight: 800;
+      border-radius: 4px 4px 0 0;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .q-gap-box:hover {
+      background: #54289E25;
+    }
+    .flag-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .flag-btn.flagged {
+      background: #FCCC0625;
+      border-color: #FCCC06;
+      color: #997300;
+    }
+    body.dark .flag-btn.flagged {
+      color: #FCCC06;
+    }
+
+    /* MCQ options */
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .mcq-opt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+    .mcq-opt:hover {
+      border-color: var(--main-light);
+      background: var(--card-subtle);
+    }
+    .mcq-opt.selected {
+      border-color: var(--main);
+      background: var(--main-bg-tint);
+      font-weight: 700;
+      color: var(--main);
+    }
+    .opt-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mcq-opt.selected .opt-circle {
+      border-color: var(--main);
+    }
+    .opt-circle-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--main);
+      display: none;
+    }
+    .mcq-opt.selected .opt-circle-dot {
+      display: block;
+    }
+
+    /* True False */
+    .tf-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .tf-btn {
+      padding: 20px 16px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .tf-btn:hover {
+      border-color: var(--main);
+    }
+    .tf-btn.selected-true {
+      border-color: var(--pass);
+      background: var(--pass-bg);
+      color: var(--pass);
+    }
+    .tf-btn.selected-false {
+      border-color: var(--fail);
+      background: var(--fail-bg);
+      color: var(--fail);
+    }
+
+    /* Word bank */
+    .wb-area {
+      margin-bottom: 24px;
+    }
+    .wb-prompt {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .wb-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .wb-pill {
+      background: var(--main-bg-tint);
+      border: 1.5px solid var(--main);
+      color: var(--main);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .wb-pill:hover:not(.disabled) {
+      background: var(--main);
+      color: #fff;
+    }
+    .wb-pill.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    /* Writing Area */
+    .writing-area {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      margin-bottom: 10px;
+    }
+    .writing-area:focus {
+      border-color: var(--main);
+    }
+    .word-counter-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .notice-box {
+      background: var(--main-bg-tint);
+      border-left: 4px solid var(--main);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* Listening Audio Card & Monologue Controls */
+    .audio-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .audio-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .audio-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .audio-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audio-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .audio-voice-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .voice-select {
+      max-width: 230px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--card-subtle);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .voice-select:focus {
+      border-color: var(--main);
+    }
+    .audio-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--main-bg-tint);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--main);
+      animation: fadeIn 0.2s ease;
+    }
+    .sound-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 14px;
+    }
+    .sound-bar {
+      width: 3px;
+      height: 100%;
+      background: var(--main);
+      border-radius: 2px;
+      animation: wavePulse 0.75s ease-in-out infinite alternate;
+    }
+    .sound-bar:nth-child(2) { animation-delay: 0.18s; }
+    .sound-bar:nth-child(3) { animation-delay: 0.36s; }
+    .sound-bar:nth-child(4) { animation-delay: 0.12s; }
+    @keyframes wavePulse {
+      0% { height: 25%; opacity: 0.4; }
+      100% { height: 100%; opacity: 1; }
+    }
+    .audio-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .audio-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Reading passage container */
+    .reading-passage-card {
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.65;
+      max-height: 380px;
+      overflow-y: auto;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    /* Question Footer Nav */
+    .q-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    /* Navigator Drawer */
+    #navigator-drawer {
+      position: fixed;
+      top: 0;
+      right: -360px;
+      width: 320px;
+      max-width: 85vw;
+      height: 100vh;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(0,0,0,0.2);
+      z-index: 200;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+    }
+    #navigator-drawer.open {
+      right: 0;
+    }
+    .nav-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .nav-head h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--main);
+    }
+    .nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 4px;
+    }
+    .nav-cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-subtle);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .nav-cell:hover {
+      border-color: var(--main);
+    }
+    .nav-cell.current {
+      outline: 2.5px solid var(--main);
+      outline-offset: 1px;
+    }
+    .nav-cell.answered {
+      background: var(--pass);
+      border-color: var(--pass);
+      color: #fff;
+    }
+    .nav-cell.flagged {
+      background: var(--accent);
+      border-color: #d6af00;
+      color: #332600;
+    }
+    #backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 150;
+      backdrop-filter: blur(2px);
+    }
+    #backdrop.show {
+      display: block;
+    }
+
+    /* Fixed Camera Preview (Exam Mode) */
+    #exam-cam-container {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      width: 96px;
+      height: 72px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--main);
+      background: #000;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      z-index: 90;
+    }
+    #exam-cam-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+    .rec-badge {
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(0,0,0,0.6);
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .rec-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--fail);
+      animation: timerBlink 1.2s infinite;
+    }
+
+    /* Results Screen */
+    .res-score-box {
+      text-align: center;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .res-big-pct {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .res-big-pct.pass {
+      color: var(--pass);
+    }
+    .res-big-pct.fail {
+      color: var(--fail);
+    }
+    .res-pts-sub {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .status-pass {
+      background: var(--pass-bg);
+      color: var(--pass);
+      border: 2px solid var(--pass);
+    }
+    .status-retry {
+      background: #FCCC0625;
+      color: #b58900;
+      border: 2px solid #FCCC06;
+    }
+    body.dark .status-retry {
+      color: #FCCC06;
+    }
+
+    /* Breakdown List */
+    .breakdown-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .breakdown-row:last-child {
+      border-bottom: none;
+    }
+    .breakdown-hdr {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .bar-bg {
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-val {
+      height: 100%;
+      background: var(--main);
+      border-radius: 4px;
+    }
+
+    /* Result Code Box */
+    .code-box-container {
+      background: var(--main-bg-tint);
+      border: 2px dashed var(--main);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    .code-display {
+      font-family: monospace;
+      font-size: 13px;
+      padding: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      word-break: break-all;
+      margin: 12px 0;
+      user-select: all;
+      max-height: 80px;
+      overflow-y: auto;
+    }
+
+    /* Teacher Dashboard Modal */
+    #teacher-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 300;
+      overflow-y: auto;
+      padding: 24px 16px;
+    }
+    .teacher-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .teacher-table-box {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+    table.teacher-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    table.teacher-table th, table.teacher-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    table.teacher-table th {
+      background: var(--card-subtle);
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .mark-input {
+      width: 60px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
+    .mark-input:focus {
+      border-color: var(--main);
+      outline: none;
+    }
+    .table-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .pill-pass {
+      background: var(--pass-bg);
+      color: var(--pass);
+    }
+    .pill-fail {
+      background: var(--fail-bg);
+      color: var(--fail);
+    }
+
+    /* Writing View Modal */
+    #writing-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 400;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    #writing-modal.show {
+      display: flex;
+    }
+    .writing-modal-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 24px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #222230;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 500;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header id="top-bar">
+    <div class="brand-box">
+      <span class="brand-title">EASY ENGLISH</span>
+      <span class="brand-sub">with Tr. Krissy</span>
+    </div>
+    <div class="top-actions">
+      <div class="cam-pill" id="top-cam-pill" title="Camera Status">
+        <span class="cam-dot" id="top-cam-dot"></span>
+        <span id="top-cam-text">CAM OFF</span>
+      </div>
+      <div id="timer-display">60:00</div>
+      <button class="icon-btn" id="dark-toggle-btn" title="Toggle theme">🌓</button>
+      <button class="icon-btn" id="nav-drawer-btn" title="Question navigator">📑</button>
+      <button class="icon-btn" id="teacher-btn" title="Teacher portal">👩‍🏫</button>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-fill"></div>
+  </div>
+
+  <!-- Main Views Container -->
+  <main class="container">
+
+    <!-- START SCREEN -->
+    <section id="start-screen">
+      <div class="hero-banner">
+        <span class="hero-badge">A2 ELEMENTARY LEVEL</span>
+        <h1>Final Exam by Tr Kyay Mone (Elementary Class)</h1>
+        <p>Easy English with Tr. Krissy</p>
+      </div>
+
+      <div class="grid-tiles">
+        <div class="tile">
+          <div class="tile-num">63</div>
+          <div class="tile-lbl">Questions</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num">60</div>
+          <div class="tile-lbl">Minutes</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num">120</div>
+          <div class="tile-lbl">Total Points</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num">60%</div>
+          <div class="tile-lbl">Pass Mark (72 pts)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--main);">Exam Structure (Seven Skills)</h2>
+        <ul style="font-size: 14px; line-height: 1.8; padding-left: 20px; color: var(--text);">
+          <li><strong>Part 1 &amp; 2: Listening</strong> — 20 points (2 recordings, 12 questions)</li>
+          <li><strong>Part 3: Reading</strong> — 25 points (1 long email, 12 questions)</li>
+          <li><strong>Part 4: Grammar</strong> — 25 points (15 questions)</li>
+          <li><strong>Part 5: Vocabulary</strong> — 20 points (10 questions)</li>
+          <li><strong>Part 6: Pronunciation</strong> — 5 points (5 questions)</li>
+          <li><strong>Part 7: Communication</strong> — 10 points (8 social situations)</li>
+          <li><strong>Part 8: Writing</strong> — 15 points (1 email task)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size: 16px; margin-bottom: 12px; color: var(--main);">Exam Rules</h2>
+        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 10px; color: var(--text-muted);">
+          • The timer starts when you click <strong>Start Exam</strong>. At 60:00, your exam submits automatically.<br>
+          • You can listen to each recording a maximum of <strong>2 times</strong>.<br>
+          • Please stay on this tab during the test. Switching tabs is recorded.<br>
+          • Writing receives a temporary mark. Tr. Krissy reads your writing and gives your final score.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size: 16px; margin-bottom: 14px; color: var(--main);">Student Details</h2>
+        <div class="form-group">
+          <label class="form-label" for="student-name">Full Name *</label>
+          <input type="text" id="student-name" class="input-text" placeholder="e.g. Aung Myo" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="student-class">Class Name / Code *</label>
+          <input type="text" id="student-class" class="input-text" placeholder="e.g. Sunday Online Batch 4">
+        </div>
+
+        <div style="margin: 18px 0;">
+          <label class="form-label">Camera Verification</label>
+          <div style="display:flex; align-items:center; gap: 14px; flex-wrap:wrap;">
+            <div style="width: 110px; height: 80px; background: #000; border-radius: 8px; overflow:hidden; display:flex; align-items:center; justify-content:center; border: 1.5px solid var(--border);">
+              <video id="start-cam-preview" autoplay playsinline muted style="width:100%; height:100%; object-fit:cover; transform: scaleX(-1); display:none;"></video>
+              <span id="start-cam-placeholder" style="font-size: 11px; color: #888; text-align:center; padding: 4px;">No Camera</span>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline" id="enable-cam-btn" style="padding: 8px 16px; font-size: 13px;">📷 Turn On Camera</button>
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Camera is optional but recommended for verification.</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-block" id="start-exam-btn" style="padding: 15px; font-size: 16px; margin-top: 10px;">
+          Start Exam ✍️
+        </button>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <button type="button" class="btn btn-outline" id="start-teacher-btn" style="font-size: 12px; padding: 6px 14px;">
+            👩‍🏫 Teacher Dashboard
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXAM QUESTION SCREEN -->
+    <section id="exam-screen" class="hidden">
+      <!-- Reading Text Banner (shown above Q13 or toggled on Q14-Q24) -->
+      <div id="reading-toggle-wrapper" class="hidden" style="margin-bottom: 16px;">
+        <button type="button" class="btn btn-outline btn-block" id="reading-toggle-btn" style="font-size: 13px; padding: 8px 14px;">
+          📖 Show / Hide Reading Text (Su Su's Email)
+        </button>
+      </div>
+
+      <div id="reading-box" class="reading-passage-card hidden">
+        <h4 style="color: var(--main); margin-bottom: 8px; font-size: 15px;">Reading Passage: Su Su's Email</h4>
+        <p style="white-space: pre-line; color: var(--text); font-size: 14px;">
+Dear Mya,
+
+How are you? I hope your family in Taunggyi is well. I am writing to you from my new flat in Sanchaung township, Yangon. 
+
+I really love my new home! There is a large living room with big windows, and there are two quiet bedrooms. It's got modern wooden furniture and a small, clean kitchen. My neighbourhood is great because there are three lively teashops on my street and a fresh fruit market around the corner. The only problem is the street noise in the morning. The buses and motorbikes are very loud at seven o'clock!
+
+My daily routine is quite busy now. I get up at half past six every morning and walk to the local market to buy fresh vegetables and fish. After breakfast, I walk to my new job. I work as a receptionist at a boutique hotel downtown. The guests are friendly, and my manager is very kind. 
+
+My sister Thida lives five minutes away from me. She works at a bank, and she often visits me after work. We cook dinner together and watch Korean dramas on television. 
+
+Do you remember our holiday last August? We were in Ngapali Beach for five wonderful days. The weather was sunny and the sea was warm and blue. I miss those relaxing days together! 
+
+Would you like to come and stay at my flat next weekend? We can visit the Shwedagon Pagoda and drink sweet milk tea at my favourite teashop. You should come in November when the weather is cooler and pleasant.
+
+Write back soon!
+
+Warm wishes,
+Su Su
+        </p>
+      </div>
+
+      <!-- Listening Audio Controls (for Part 1 & 2) -->
+      <div id="audio-panel" class="audio-card hidden">
+        <div class="audio-header-row">
+          <div class="audio-info">
+            <span class="audio-title">
+              <span>🎧</span>
+              <span id="audio-track-title">Listening Track 1 (Monologue)</span>
+            </span>
+            <span class="audio-sub" id="audio-plays-left">Plays remaining: 2 of 2 · Natural British Accent</span>
+          </div>
+          <div class="audio-voice-box">
+            <label for="british-voice-select">🎙️ Voice:</label>
+            <select id="british-voice-select" class="voice-select" title="British natural accent voice selector">
+              <option value="">Detecting British voices...</option>
+            </select>
+            <button type="button" class="btn btn-outline" id="test-voice-btn" style="padding: 5px 10px; font-size: 11px;" title="Test British accent pronunciation">
+              🔊 Test
+            </button>
+          </div>
+        </div>
+
+        <div id="audio-status-banner" class="audio-status-banner hidden">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span id="audio-status-icon">🔔</span>
+            <span id="audio-status-text">Playing exam intro chime...</span>
+          </div>
+          <div class="sound-wave">
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+          </div>
+        </div>
+
+        <div class="audio-controls-row">
+          <div class="audio-buttons">
+            <button type="button" class="btn btn-primary" id="play-audio-btn" style="padding: 8px 18px; font-size: 13px;">
+              ▶ Play Monologue
+            </button>
+            <button type="button" class="btn btn-secondary" id="stop-audio-btn" style="padding: 8px 14px; font-size: 13px;">
+              ■ Stop
+            </button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;">
+            🔔 Sound effect: Exam chime + British monologue
+          </div>
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="card" id="question-card">
+        <div class="q-header">
+          <div class="q-meta">
+            <span class="q-num" id="q-number-label">Question 1 of 63</span>
+            <span class="badge badge-easy" id="q-diff-badge">EASY</span>
+            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted);" id="q-points-label">1.5 pts</span>
+          </div>
+          <button type="button" class="flag-btn" id="q-flag-btn">
+            🚩 Flag for review
+          </button>
+        </div>
+
+        <div class="q-stem" id="q-stem-text">What is Daniel's job?</div>
+
+        <!-- MCQ Container -->
+        <div class="mcq-options hidden" id="mcq-container"></div>
+
+        <!-- True/False Container -->
+        <div class="tf-options hidden" id="tf-container">
+          <button type="button" class="tf-btn" id="tf-true-btn">TRUE</button>
+          <button type="button" class="tf-btn" id="tf-false-btn">FALSE</button>
+        </div>
+
+        <!-- Word Bank Container -->
+        <div class="wb-area hidden" id="wb-container">
+          <p class="wb-prompt">Tap a word to place it in the gap. Tap the gap to clear it:</p>
+          <div class="wb-bank" id="wb-bank-pills"></div>
+        </div>
+
+        <!-- Writing Task Container -->
+        <div class="writing-container hidden" id="writing-container">
+          <div class="notice-box">
+            Writing gets a temporary mark. Tr. Krissy reads your answer and gives your real score.
+          </div>
+          <textarea id="writing-input" class="writing-area" placeholder="Dear friend,..."></textarea>
+          <div class="word-counter-box">
+            <span id="word-counter-label">Words: 0</span>
+            <span style="font-size: 12px;">Aim for 60–90 words</span>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="q-nav">
+          <button type="button" class="btn btn-secondary" id="prev-q-btn">← Back</button>
+          <button type="button" class="btn btn-primary" id="next-q-btn">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section id="results-screen" class="hidden">
+      <div class="hero-banner" id="res-hero">
+        <span class="hero-badge">OFFICIAL RESULT</span>
+        <h1 id="res-title">Congratulations!</h1>
+        <p id="res-subtitle">You have completed your final English exam.</p>
+      </div>
+
+      <div class="card res-score-box">
+        <div class="res-big-pct" id="res-percentage">85%</div>
+        <div class="res-pts-sub" id="res-points">102 / 120 Points</div>
+        <div id="res-status-pill" class="status-pill status-pass">PASS</div>
+        <div style="font-size: 13px; color: var(--text-muted); margin-top: 14px;" id="res-time-used">
+          Time used: 45 mins 10 secs
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--main);">Score Breakdown by Skill</h3>
+        <div id="breakdown-list"></div>
+      </div>
+
+      <div class="code-box-container">
+        <h3 style="color: var(--main); font-size: 16px; margin-bottom: 6px;">Your Official Result Code</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
+          Copy this code and send it to Tr. Krissy on Telegram or Viber.
+        </p>
+        <div class="code-display" id="result-code-text">EEK2-...</div>
+        <button type="button" class="btn btn-primary" id="copy-code-btn" style="padding: 10px 20px;">
+          📋 Copy My Result Code
+        </button>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="button" class="btn btn-outline" id="res-open-teacher-btn">
+          👩‍🏫 Teacher Dashboard
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Navigator Drawer -->
+  <aside id="navigator-drawer">
+    <div class="nav-head">
+      <h3>Question Navigator</h3>
+      <button class="icon-btn" id="close-nav-btn">✕</button>
+    </div>
+    <div class="nav-legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--pass);"></span> Answered</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--accent);"></span> Flagged</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--card-subtle); border: 1px solid var(--border);"></span> Empty</div>
+    </div>
+    <div class="nav-grid" id="nav-grid-cells"></div>
+  </aside>
+
+  <!-- Fixed Exam Camera Preview -->
+  <div id="exam-cam-container">
+    <video id="exam-cam-video" autoplay playsinline muted></video>
+    <div class="rec-badge">
+      <span class="rec-dot"></span> REC
+    </div>
+  </div>
+
+  <!-- Hidden Snapshot Canvas -->
+  <canvas id="snap-canvas" width="160" height="120" style="display:none;"></canvas>
+
+  <!-- Backdrop -->
+  <div id="backdrop"></div>
+
+  <!-- Toast -->
+  <div id="toast">Copied to clipboard!</div>
+
+  <!-- TEACHER DASHBOARD MODAL -->
+  <div id="teacher-modal">
+    <div class="teacher-wrap">
+      <div class="dash-header">
+        <div>
+          <h2 style="font-size: 22px; color: var(--main); font-weight: 800;">Teacher Portal &amp; Results</h2>
+          <p style="font-size: 13px; color: var(--text-muted);">Easy English with Tr. Krissy · Elementary Final Exam</p>
+        </div>
+        <button type="button" class="btn btn-outline" id="close-teacher-btn">✕ Close Dashboard</button>
+      </div>
+
+      <div class="grid-tiles" style="margin-bottom: 24px;">
+        <div class="tile">
+          <div class="tile-num" id="t-stat-students">0</div>
+          <div class="tile-lbl">Total Students</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num" id="t-stat-avg">0%</div>
+          <div class="tile-lbl">Class Average</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num" id="t-stat-passed">0</div>
+          <div class="tile-lbl">Passed (≥60%)</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num" id="t-stat-highest">0%</div>
+          <div class="tile-lbl">Highest Score</div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex; flex-wrap:wrap; gap: 10px; align-items:center; justify-content:space-between;">
+        <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-primary" id="t-add-code-btn">➕ Add Result Code</button>
+          <button type="button" class="btn btn-outline" id="t-export-csv-btn">📥 Export CSV</button>
+        </div>
+        <button type="button" class="btn btn-outline" id="t-clear-all-btn" style="color: var(--fail);">🗑️ Clear All</button>
+      </div>
+
+      <div class="teacher-table-box">
+        <table class="teacher-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Date</th>
+              <th>List (20)</th>
+              <th>Read (25)</th>
+              <th>Gram (25)</th>
+              <th>Vocab (20)</th>
+              <th>Pron (5)</th>
+              <th>Comm (10)</th>
+              <th>Writing (15)</th>
+              <th>Total</th>
+              <th>%</th>
+              <th>Result</th>
+              <th>Tabs</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="teacher-table-body">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Writing Full View Modal -->
+  <div id="writing-modal">
+    <div class="writing-modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
+        <h3 style="color:var(--main); font-size:18px;" id="wm-student-title">Student's Writing Task</h3>
+        <button type="button" class="icon-btn" id="wm-close-btn">✕</button>
+      </div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom: 12px;" id="wm-meta-info">Word count: 0</div>
+      <div style="background:var(--card-subtle); padding:16px; border-radius:10px; border:1px solid var(--border); font-size:14px; line-height:1.7; white-space:pre-wrap; color:var(--text); margin-bottom: 16px;" id="wm-content"></div>
+      <div id="wm-snapshots-section" style="margin-top: 14px;">
+        <h4 style="font-size: 14px; margin-bottom: 8px; color: var(--main);">Security Snapshots</h4>
+        <div id="wm-snapshots-grid" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script>
+    /* Safe escape helper */
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    /* Listening Transcripts - Natural British Monologue */
+    const AUDIO_TEXT_1 = "Hello! My name is Daniel, and I live in Yangon. I am a nurse at a busy clinic near Inya Lake. My working day starts at eight o'clock in the morning, and finishes at four thirty in the afternoon. I live with my wife, May, and our two children. We have got a small flat on the third floor. We haven't got a garden, but we've got a bright balcony with pretty plants. I always get up at six o'clock, and make breakfast. I usually eat Mohinga or fried rice, and I sometimes drink hot green tea. I love Shan noodles too! I never drive to work because the traffic is very heavy, so I always take the bus. In the evening, we cook dinner together, and talk about our day.";
+
+    const AUDIO_TEXT_2 = "Last weekend, on Saturday the twelfth of September, we had a big family party at my parents' house in Mandalay. It was my mother's sixtieth birthday, so all our relatives were there. There were about thirty people in the house, and nearly fifteen children were playing outside in the yard. My aunties cooked delicious food. People always ask, 'How much food was there?' Well, there was a lot of chicken curry and vegetable soup! And how many cakes were there on the table? My sister baked two large coconut cakes. The party was wonderful because everyone was happy and relaxed. We listened to music and sang songs until nine o'clock. Next month, I would like to visit my grandparents in Pyin Oo Lwin, and take them to the botanical gardens.";
+
+    /* Questions Array (PARTS) — exactly matching schema */
+    const PARTS = [
+      // Part 1: Listening 1 (Daniel's job, home, routine) - 10 pts
+      { skill: "Listening", points: 1.5, type: "mcq", diff: "easy", stem: "What is Daniel's job?", opts: ["A taxi driver", "A clinic nurse", "A high school teacher", "A shop manager"], ans: 1 },
+      { skill: "Listening", points: 1.5, type: "tf", diff: "easy", stem: "Daniel starts work at 8:00 in the morning.", ans: true },
+      { skill: "Listening", points: 1.5, type: "mcq", diff: "easy", stem: "Who does Daniel live with?", opts: ["His grandparents", "His wife and two children", "His brother and sister", "Alone in a studio flat"], ans: 1 },
+      { skill: "Listening", points: 1.5, type: "tf", diff: "med", stem: "Daniel has got a private garden in his flat.", ans: false },
+      { skill: "Listening", points: 2.0, type: "wb", diff: "med", stem: "Daniel never ___ to work because of heavy traffic.", bank: ["drives", "walks", "runs", "cycles"], ans: "drives" },
+      { skill: "Listening", points: 2.0, type: "mcq", diff: "hard", stem: "What does Daniel sometimes drink in the morning?", opts: ["Cold beer", "Black coffee", "Hot green tea", "Orange juice"], ans: 2 },
+
+      // Part 2: Listening 2 (Family party last weekend) - 10 pts
+      { skill: "Listening", points: 1.5, type: "mcq", diff: "easy", stem: "When was the family party in Mandalay?", opts: ["Last Friday morning", "Saturday the twelfth of September", "Sunday evening", "Last month on Monday"], ans: 1 },
+      { skill: "Listening", points: 1.5, type: "tf", diff: "easy", stem: "The party was for Daniel's mother's 60th birthday.", ans: true },
+      { skill: "Listening", points: 1.5, type: "mcq", diff: "med", stem: "About how many people were in the house?", opts: ["About 10 people", "About 20 people", "About 30 people", "About 50 people"], ans: 2 },
+      { skill: "Listening", points: 1.5, type: "tf", diff: "med", stem: "Nearly fifteen children were playing outside in the yard.", ans: true },
+      { skill: "Listening", points: 2.0, type: "wb", diff: "hard", stem: "Daniel's sister baked two large ___ cakes.", bank: ["coconut", "chocolate", "banana", "strawberry"], ans: "coconut" },
+      { skill: "Listening", points: 2.0, type: "mcq", diff: "hard", stem: "What would Daniel like to do next month?", opts: ["Buy a new car in Yangon", "Visit his grandparents in Pyin Oo Lwin", "Travel to Bangkok with friends", "Start a new job at a hospital"], ans: 1 },
+
+      // Part 3: Reading (Su Su's email to Mya) - 25 pts (11 x 2pts + 1 x 3pts)
+      { skill: "Reading", points: 2.0, type: "mcq", diff: "easy", stem: "Where is Su Su's new flat located?", opts: ["In Taunggyi", "In Mandalay", "In Sanchaung township, Yangon", "In Bagan"], ans: 2 },
+      { skill: "Reading", points: 2.0, type: "tf", diff: "easy", stem: "There are two quiet bedrooms in Su Su's flat.", ans: true },
+      { skill: "Reading", points: 2.0, type: "mcq", diff: "easy", stem: "What is one problem with Su Su's neighbourhood?", opts: ["There are no teashops", "The street noise in the morning", "The water is cold", "The market is too far"], ans: 1 },
+      { skill: "Reading", points: 2.0, type: "tf", diff: "easy", stem: "Su Su wakes up at half past six every morning.", ans: true },
+      { skill: "Reading", points: 2.0, type: "mcq", diff: "med", stem: "What is Su Su's new job?", opts: ["A bank teller", "A hotel receptionist downtown", "An English teacher", "A chef at a teashop"], ans: 1 },
+      { skill: "Reading", points: 2.0, type: "tf", diff: "med", stem: "Su Su takes a taxi to her new job every day.", ans: false },
+      { skill: "Reading", points: 2.0, type: "mcq", diff: "med", stem: "Where does Su Su's sister Thida work?", opts: ["At a boutique hotel", "At a market stall", "At a bank", "At a travel agency"], ans: 2 },
+      { skill: "Reading", points: 2.0, type: "wb", diff: "med", stem: "Su Su and Thida often cook dinner and watch ___ dramas on TV.", bank: ["Korean", "Japanese", "Chinese", "English"], ans: "Korean" },
+      { skill: "Reading", points: 2.0, type: "mcq", diff: "med", stem: "Where were Su Su and Mya on holiday last August?", opts: ["In Inle Lake", "In Pyin Oo Lwin", "In Ngapali Beach", "In Mandalay"], ans: 2 },
+      { skill: "Reading", points: 2.0, type: "tf", diff: "hard", stem: "The weather in Ngapali was rainy and cold.", ans: false },
+      { skill: "Reading", points: 2.0, type: "wb", diff: "hard", stem: "Su Su invites Mya to visit the ___ Pagoda.", bank: ["Shwedagon", "Sule", "Kuthodaw", "Mahamuni"], ans: "Shwedagon" },
+      { skill: "Reading", points: 3.0, type: "mcq", diff: "hard", stem: "Why should Mya visit in November?", opts: ["Because the teashops are free", "Because the weather is cooler and pleasant", "Because Su Su has a long holiday", "Because the boutique hotel is closed"], ans: 1 },
+
+      // Part 4: Grammar - 25 pts (10 x 1.5 pts + 5 x 2.0 pts)
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "easy", stem: "My brother ___ in a bank in downtown Yangon.", opts: ["work", "works", "working", "is work"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "easy", stem: "Ko Ko is a careful driver. He ___ wears his seatbelt.", opts: ["always", "never", "sometimes", "rarely"], ans: 0 },
+      { skill: "Grammar", points: 1.5, type: "tf", diff: "easy", stem: "'Do you study English online every day?' — 'Yes, I do.' is grammatically correct.", ans: true },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "easy", stem: "___ three teashops on my street.", opts: ["There is", "There are", "There be", "Is there"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "easy", stem: "Can I have ___ glass of cold water, please?", opts: ["an", "a", "some", "any"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "med", stem: "We haven't got ___ milk in the fridge.", opts: ["some", "any", "a", "many"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "med", stem: "They ___ a car, but they have got two motorbikes.", opts: ["hasn't got", "haven't got", "don't got", "not have"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "med", stem: "Look over there across the road! Who is ___ man standing near the pagoda?", opts: ["this", "that", "these", "those"], ans: 1 },
+      { skill: "Grammar", points: 1.5, type: "wb", diff: "med", stem: "Yesterday, our teacher ___ not at school because she was sick.", bank: ["was", "were", "is", "are"], ans: "was" },
+      { skill: "Grammar", points: 1.5, type: "mcq", diff: "med", stem: "Where ___ you last Sunday afternoon?", opts: ["was", "were", "are", "been"], ans: 1 },
+      { skill: "Grammar", points: 2.0, type: "mcq", diff: "med", stem: "My parents really love ___ to traditional Myanmar music.", opts: ["listen", "listens", "listening", "listened"], ans: 2 },
+      { skill: "Grammar", points: 2.0, type: "mcq", diff: "hard", stem: "___ sugar do you put in your coffee?", opts: ["How many", "How much", "How often", "How long"], ans: 1 },
+      { skill: "Grammar", points: 2.0, type: "mcq", diff: "hard", stem: "That is my ___ house. They both live together in Mandalay.", opts: ["parent's", "parents'", "parents's", "parent"], ans: 1 },
+      { skill: "Grammar", points: 2.0, type: "wb", diff: "hard", stem: "___ you like a cup of tea?", bank: ["Would", "Do", "Could", "Should"], ans: "Would" },
+      { skill: "Grammar", points: 2.0, type: "mcq", diff: "hard", stem: "You look very tired. You ___ go to bed early tonight.", opts: ["should", "should to", "are should", "to should"], ans: 0 },
+
+      // Part 5: Vocabulary - 20 pts (10 x 2.0 pts)
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "easy", stem: "A person who cuts and styles people's hair is a ___ .", opts: ["hairdresser", "mechanic", "dentist", "pilot"], ans: 0 },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "easy", stem: "Your uncle's son or daughter is your ___ .", opts: ["nephew", "niece", "cousin", "aunt"], ans: 2 },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "easy", stem: "Maung Maung worked for 12 hours today. He feels very ___ .", opts: ["angry", "tired", "bored", "scared"], ans: 1 },
+      { skill: "Vocabulary", points: 2.0, type: "tf", diff: "easy", stem: "The opposite of 'quiet' is 'loud'.", ans: true },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "med", stem: "You usually keep your clothes hanging inside a ___ in your bedroom.", opts: ["wardrobe", "fridge", "sofa", "sink"], ans: 0 },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "med", stem: "When you finish eating at a restaurant, you ask the waiter for the ___ .", opts: ["recipe", "bill", "menu", "order"], ans: 1 },
+      { skill: "Vocabulary", points: 2.0, type: "wb", diff: "med", stem: "Customer: 'Excuse me, ___ much is this longyi?'", bank: ["how", "what", "where", "who"], ans: "how" },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "med", stem: "The bus ticket costs 980 kyats. That is ___ 1,000 kyats.", opts: ["nearly", "exactly", "over", "far from"], ans: 0 },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "hard", stem: "I usually ___ my teeth twice a day: after breakfast and before bed.", opts: ["wash", "brush", "comb", "cleanse"], ans: 1 },
+      { skill: "Vocabulary", points: 2.0, type: "mcq", diff: "hard", stem: "In Myanmar, the ___ season usually begins in June and brings lots of rain.", opts: ["hot", "rainy", "cool", "winter"], ans: 1 },
+
+      // Part 6: Pronunciation - 5 pts (5 x 1.0 pt)
+      { skill: "Pronunciation", points: 1.0, type: "mcq", diff: "easy", stem: "Which word has the long /iː/ vowel sound like in 'sheep'?", opts: ["ship", "fit", "beat", "sit"], ans: 2 },
+      { skill: "Pronunciation", points: 1.0, type: "mcq", diff: "easy", stem: "How many syllables are there in the word 'hospital' (hos-pi-tal)?", opts: ["Two (2)", "Three (3)", "Four (4)", "One (1)"], ans: 1 },
+      { skill: "Pronunciation", points: 1.0, type: "tf", diff: "med", stem: "The words 'meat' and 'feet' rhyme (have the same ending sound).", ans: true },
+      { skill: "Pronunciation", points: 1.0, type: "mcq", diff: "med", stem: "Which word has a DIFFERENT vowel sound from the other three?", opts: ["car", "star", "park", "cat"], ans: 3 },
+      { skill: "Pronunciation", points: 1.0, type: "mcq", diff: "hard", stem: "Where is the main stress in the word 'delicious'?", opts: ["DE-li-cious (1st)", "de-LI-cious (2nd)", "de-li-CIOUS (3rd)", "All equal"], ans: 1 },
+
+      // Part 7: Communication - 10 pts (8 x 1.25 pts)
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "easy", stem: "Situation: You meet your new teacher, Tr. Krissy, for the very first time. What do you say?", opts: ["Nice to meet you.", "See you later.", "Never mind.", "Excuse me, where is the toilet?"], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "easy", stem: "Situation: Your friend gives you a lovely birthday present. What do you say?", opts: ["You're welcome.", "Thank you so much! I love it.", "That's fine.", "Not at all."], ans: 1 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "easy", stem: "Situation: Class finishes at 9:00 pm. You are leaving your classmate. What is the most natural response?", opts: ["Goodbye, see you tomorrow!", "Hello, how are you?", "I don't agree.", "Pleased to meet you."], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "med", stem: "Situation: You are at Bogyoke Market and you want to know the price of a jade bracelet. What do you ask?", opts: ["How much is this, please?", "How many bracelets are here?", "What do you like?", "Can I give you money?"], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "med", stem: "Situation: You accidentally step on someone's foot on a crowded bus. What do you say?", opts: ["I am so sorry!", "Congratulations!", "No problem!", "Cheers!"], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "med", stem: "Situation: The waiter in a restaurant asks, 'Are you ready to order?' What do you reply?", opts: ["Yes, I'd like the chicken fried rice, please.", "No, you cannot order now.", "How old are you?", "The bill is ready."], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "hard", stem: "Situation: It is a sunny Sunday and you want to do something fun with your friend. What do you say?", opts: ["Shall we go to Kandawgyi Park this afternoon?", "You must work now.", "Why do you sleep?", "I am doing my homework."], ans: 0 },
+      { skill: "Communication", points: 1.25, type: "mcq", diff: "hard", stem: "Situation: You want to invite your coworker to have a cup of tea after work. What do you ask?", opts: ["Would you like to get a cup of tea after work?", "Drink tea right now!", "Do you have tea in your bag?", "Tea is very cheap."], ans: 0 },
+
+      // Part 8: Writing - 15 pts
+      {
+        skill: "Writing",
+        points: 15.0,
+        type: "writing",
+        diff: "hard",
+        stem: "Write an informal email to your friend (60 – 90 words).\n\nIn your email, you must:\n• Describe your daily routine and what time you start and finish your day\n• Describe your home (rooms and furniture)\n• Invite your friend to visit you next month\n\nRemember to begin with a friendly greeting (e.g. 'Dear...', 'Hi...') and end with a suitable closing (e.g. 'Best wishes', 'See you soon').",
+        ans: null
+      }
+    ];
+
+    /* Application State */
+    let student = {
+      name: "",
+      class: "",
+      id: "STU-" + Math.floor(100000 + Math.random() * 900000)
+    };
+
+    let userAnswers = new Array(PARTS.length).fill(null);
+    let flaggedQuestions = new Array(PARTS.length).fill(false);
+    let currentQIndex = 0;
+    let timerSeconds = 60 * 60; // 60 minutes
+    let timerInterval = null;
+    let examStarted = false;
+    let examFinished = false;
+    let tabExitCount = 0;
+    let snapshots = [];
+    let mediaStream = null;
+    let snapshotInterval = null;
+
+    // Audio tracking
+    let audioPlaysLeft = { 1: 2, 2: 2 };
+    let currentUtterance = null;
+    let isSpeaking = false;
+
+    /* Theme Management */
+    const darkToggleBtn = document.getElementById('dark-toggle-btn');
+    function initTheme() {
+      const savedTheme = localStorage.getItem('ee_exam_theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        darkToggleBtn.textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark');
+        darkToggleBtn.textContent = '🌓';
+      }
+    }
+    darkToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      darkToggleBtn.textContent = isDark ? '☀️' : '🌓';
+      localStorage.setItem('ee_exam_theme', isDark ? 'dark' : 'light');
+    });
+    initTheme();
+
+    /* Cheating check: Tab visibility detection */
+    document.addEventListener('visibilitychange', () => {
+      if (examStarted && !examFinished && document.hidden) {
+        tabExitCount++;
+        showToast("⚠️ Warning: Please stay on the exam screen!");
+      }
+    });
+
+    /* Camera Handling */
+    const startCamPreview = document.getElementById('start-cam-preview');
+    const startCamPlaceholder = document.getElementById('start-cam-placeholder');
+    const enableCamBtn = document.getElementById('enable-cam-btn');
+    const examCamContainer = document.getElementById('exam-cam-container');
+    const examCamVideo = document.getElementById('exam-cam-video');
+    const topCamDot = document.getElementById('top-cam-dot');
+    const topCamText = document.getElementById('top-cam-text');
+    const snapCanvas = document.getElementById('snap-canvas');
+
+    async function initCamera() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert("Camera is not supported on this browser/device. You can still continue the exam.");
+          return;
+        }
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 }, audio: false });
+        startCamPreview.srcObject = mediaStream;
+        startCamPreview.style.display = 'block';
+        startCamPlaceholder.style.display = 'none';
+        enableCamBtn.textContent = "✓ Camera Active";
+        enableCamBtn.disabled = true;
+
+        examCamVideo.srcObject = mediaStream;
+        topCamDot.classList.add('active');
+        topCamText.textContent = "CAM ON";
+      } catch (err) {
+        console.warn("Camera access denied or unavailable:", err);
+        alert("Camera access was not granted. You can still continue your exam.");
+      }
+    }
+    enableCamBtn.addEventListener('click', initCamera);
+
+    function takeSnapshot() {
+      if (!mediaStream || !examCamVideo.videoWidth) return;
+      try {
+        const ctx = snapCanvas.getContext('2d');
+        ctx.drawImage(examCamVideo, 0, 0, snapCanvas.width, snapCanvas.height);
+        const dataUrl = snapCanvas.toDataURL('image/jpeg', 0.5);
+        snapshots.push(dataUrl);
+        if (snapshots.length > 10) {
+          snapshots.shift(); // keep last 10
+        }
+      } catch (e) {
+        console.error("Snapshot error:", e);
+      }
+    }
+
+    /* Timer Functions */
+    const timerDisplay = document.getElementById('timer-display');
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+        if (timerSeconds <= 300) {
+          timerDisplay.className = 'danger';
+        } else if (timerSeconds <= 600) {
+          timerDisplay.className = 'warn';
+        } else {
+          timerDisplay.className = '';
+        }
+
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    /* Speech Synthesis Audio Engine & Exam Sound Effects */
+    const playAudioBtn = document.getElementById('play-audio-btn');
+    const stopAudioBtn = document.getElementById('stop-audio-btn');
+    const audioPlaysLeftLabel = document.getElementById('audio-plays-left');
+    const audioTrackTitle = document.getElementById('audio-track-title');
+    const britishVoiceSelect = document.getElementById('british-voice-select');
+    const testVoiceBtn = document.getElementById('test-voice-btn');
+    const audioStatusBanner = document.getElementById('audio-status-banner');
+    const audioStatusIcon = document.getElementById('audio-status-icon');
+    const audioStatusText = document.getElementById('audio-status-text');
+
+    let activeAudioCtx = null;
+    let activeOscillators = [];
+    let allBritishVoices = [];
+    let selectedVoiceUri = localStorage.getItem('ee_british_voice_uri') || '';
+    let chimeTimer = null;
+
+    /* Sound Effect Engine (Web Audio API - Pure & Instant Offline) */
+    function playExamSoundEffect(type, callback) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) {
+          if (callback) callback();
+          return;
+        }
+        if (!activeAudioCtx || activeAudioCtx.state === 'closed') {
+          activeAudioCtx = new AudioCtx();
+        }
+        if (activeAudioCtx.state === 'suspended') {
+          activeAudioCtx.resume();
+        }
+        const ctx = activeAudioCtx;
+        const now = ctx.currentTime;
+
+        if (type === 'intro') {
+          // Authentic British Exam Dual Chime (D5: 587.33Hz -> A5: 880.00Hz with tubular harmonics)
+          // First Chime Tone
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(587.33, now);
+          gain1.gain.setValueAtTime(0.001, now);
+          gain1.gain.exponentialRampToValueAtTime(0.3, now + 0.04);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.52);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start(now);
+          osc1.stop(now + 0.55);
+          activeOscillators.push(osc1);
+
+          // Subtle harmonic for bell resonance
+          const harm1 = ctx.createOscillator();
+          const harmGain1 = ctx.createGain();
+          harm1.type = 'sine';
+          harm1.frequency.setValueAtTime(1174.66, now);
+          harmGain1.gain.setValueAtTime(0.001, now);
+          harmGain1.gain.exponentialRampToValueAtTime(0.08, now + 0.03);
+          harmGain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          harm1.connect(harmGain1);
+          harmGain1.connect(ctx.destination);
+          harm1.start(now);
+          harm1.stop(now + 0.4);
+          activeOscillators.push(harm1);
+
+          // Second Chime Tone (higher resolving note)
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(880.00, now + 0.34);
+          gain2.gain.setValueAtTime(0.001, now);
+          gain2.gain.setValueAtTime(0.001, now + 0.34);
+          gain2.gain.exponentialRampToValueAtTime(0.32, now + 0.38);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.95);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now + 0.34);
+          osc2.stop(now + 1.0);
+          activeOscillators.push(osc2);
+
+          const harm2 = ctx.createOscillator();
+          const harmGain2 = ctx.createGain();
+          harm2.type = 'sine';
+          harm2.frequency.setValueAtTime(1760.00, now + 0.34);
+          harmGain2.gain.setValueAtTime(0.001, now);
+          harmGain2.gain.setValueAtTime(0.001, now + 0.34);
+          harmGain2.gain.exponentialRampToValueAtTime(0.09, now + 0.37);
+          harmGain2.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+          harm2.connect(harmGain2);
+          harmGain2.connect(ctx.destination);
+          harm2.start(now + 0.34);
+          harm2.stop(now + 0.75);
+          activeOscillators.push(harm2);
+
+          chimeTimer = setTimeout(() => {
+            if (callback) callback();
+          }, 1050);
+
+        } else {
+          // Outro Descending Chime (A5: 880.00Hz -> D5: 587.33Hz)
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(880.00, now);
+          gain1.gain.setValueAtTime(0.001, now);
+          gain1.gain.exponentialRampToValueAtTime(0.25, now + 0.04);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start(now);
+          osc1.stop(now + 0.5);
+          activeOscillators.push(osc1);
+
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(587.33, now + 0.32);
+          gain2.gain.setValueAtTime(0.001, now);
+          gain2.gain.setValueAtTime(0.001, now + 0.32);
+          gain2.gain.exponentialRampToValueAtTime(0.28, now + 0.36);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now + 0.32);
+          osc2.stop(now + 0.95);
+          activeOscillators.push(osc2);
+
+          chimeTimer = setTimeout(() => {
+            if (callback) callback();
+          }, 1000);
+        }
+      } catch (e) {
+        console.warn("Sound effect error:", e);
+        if (callback) callback();
+      }
+    }
+
+    /* British Natural Accent Voice Detector & Prioritizer */
+    function getVoiceQualityScore(v) {
+      let score = 0;
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase();
+
+      // Highest priority: British English
+      if (lang === 'en-gb' || lang.startsWith('en_gb') || lang === 'en-uk') score += 40;
+      if (name.includes('british') || name.includes('united kingdom') || name.includes('uk')) score += 30;
+
+      // Premium neural / natural British voices
+      if (name.includes('natural') || name.includes('online')) score += 35;
+      if (name.includes('google uk english male')) score += 50; // Perfect match for Daniel
+      if (name.includes('daniel')) score += 45; // Apple's British male voice is Daniel!
+      if (name.includes('oliver') || name.includes('arthur') || name.includes('george')) score += 40;
+      if (name.includes('google uk english female')) score += 38;
+      if (name.includes('ryan') || name.includes('hazel') || name.includes('serena') || name.includes('sonia')) score += 30;
+
+      return score;
+    }
+
+    function populateBritishVoices() {
+      if (!('speechSynthesis' in window)) return;
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices || voices.length === 0) return;
+
+      // Filter British voices first
+      const british = voices.filter(v => {
+        const lang = (v.lang || '').toLowerCase();
+        const name = (v.name || '').toLowerCase();
+        return lang === 'en-gb' || lang.startsWith('en_gb') || lang === 'en-uk' ||
+               name.includes('uk') || name.includes('british') || name.includes('united kingdom') ||
+               name.includes('daniel') || name.includes('oliver') || name.includes('george') ||
+               name.includes('hazel') || name.includes('serena') || name.includes('arthur') ||
+               name.includes('libby') || name.includes('ryan') || name.includes('sonia');
+      });
+
+      // Sort by natural quality score descending
+      british.sort((a, b) => getVoiceQualityScore(b) - getVoiceQualityScore(a));
+      allBritishVoices = british;
+
+      if (!britishVoiceSelect) return;
+      britishVoiceSelect.innerHTML = '';
+
+      if (british.length === 0) {
+        // Fallback to any English voice
+        const english = voices.filter(v => (v.lang || '').toLowerCase().startsWith('en'));
+        english.forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v.voiceURI || v.name;
+          opt.textContent = `🇬🇧 ${v.name} (${v.lang})`;
+          britishVoiceSelect.appendChild(opt);
+        });
+      } else {
+        british.forEach((v, idx) => {
+          const opt = document.createElement('option');
+          opt.value = v.voiceURI || v.name;
+          const badge = idx === 0 ? ' · Recommended Natural' : '';
+          opt.textContent = `🇬🇧 ${v.name}${badge}`;
+          britishVoiceSelect.appendChild(opt);
+        });
+      }
+
+      // Restore saved preference if exists
+      if (selectedVoiceUri && Array.from(britishVoiceSelect.options).some(o => o.value === selectedVoiceUri)) {
+        britishVoiceSelect.value = selectedVoiceUri;
+      } else if (britishVoiceSelect.options.length > 0) {
+        britishVoiceSelect.selectedIndex = 0;
+        selectedVoiceUri = britishVoiceSelect.value;
+      }
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => populateBritishVoices();
+      populateBritishVoices();
+    }
+
+    if (britishVoiceSelect) {
+      britishVoiceSelect.addEventListener('change', () => {
+        selectedVoiceUri = britishVoiceSelect.value;
+        localStorage.setItem('ee_british_voice_uri', selectedVoiceUri);
+        showToast("British accent voice updated.");
+      });
+    }
+
+    function getActiveBritishVoice() {
+      if (!('speechSynthesis' in window)) return null;
+      const voices = window.speechSynthesis.getVoices();
+      const targetUri = britishVoiceSelect ? britishVoiceSelect.value : selectedVoiceUri;
+
+      if (targetUri) {
+        const found = voices.find(v => (v.voiceURI === targetUri || v.name === targetUri));
+        if (found) return found;
+      }
+      if (allBritishVoices.length > 0) return allBritishVoices[0];
+
+      return voices.find(v => (v.lang || '').toLowerCase().startsWith('en-gb'))
+          || voices.find(v => (v.name || '').toLowerCase().includes('british'))
+          || voices.find(v => (v.lang || '').toLowerCase().startsWith('en'))
+          || null;
+    }
+
+    /* Test British Voice Button */
+    if (testVoiceBtn) {
+      testVoiceBtn.addEventListener('click', () => {
+        if (isSpeaking) {
+          stopAudio();
+          return;
+        }
+        if (!('speechSynthesis' in window)) {
+          alert("Speech synthesis is not supported on this browser.");
+          return;
+        }
+
+        const voice = getActiveBritishVoice();
+        const voiceName = voice ? voice.name : 'British Natural';
+        
+        if (audioStatusBanner) {
+          audioStatusBanner.classList.remove('hidden');
+          audioStatusIcon.textContent = "🔔";
+          audioStatusText.textContent = "Testing exam sound effect...";
+        }
+
+        playExamSoundEffect('intro', () => {
+          if (audioStatusBanner) {
+            audioStatusIcon.textContent = "🇬🇧";
+            audioStatusText.textContent = `Testing British Accent: ${voiceName}...`;
+          }
+
+          const utterance = new SpeechSynthesisUtterance("Hello! This is Daniel speaking in natural British English for your elementary listening exam.");
+          utterance.rate = 0.88;
+          utterance.pitch = 0.98;
+          utterance.lang = 'en-GB';
+          if (voice) utterance.voice = voice;
+
+          utterance.onend = () => {
+            if (audioStatusBanner) audioStatusBanner.classList.add('hidden');
+          };
+          utterance.onerror = () => {
+            if (audioStatusBanner) audioStatusBanner.classList.add('hidden');
+          };
+
+          window.speechSynthesis.speak(utterance);
+        });
+      });
+    }
+
+    /* Play Monologue with Exam Sound Effects & British Accent */
+    function playAudio(trackNum) {
+      if (!('speechSynthesis' in window)) {
+        alert("Speech synthesis is not supported on this browser.");
+        return;
+      }
+      if (audioPlaysLeft[trackNum] <= 0) {
+        alert(`You have used all 2 plays for Recording ${trackNum}.`);
+        return;
+      }
+
+      stopAudio();
+
+      isSpeaking = true;
+      playAudioBtn.disabled = true;
+      playAudioBtn.textContent = "🔊 Playing...";
+      if (audioStatusBanner) audioStatusBanner.classList.remove('hidden');
+
+      const voice = getActiveBritishVoice();
+      const voiceName = voice ? voice.name : 'British English';
+
+      const introText = trackNum === 1
+        ? "Part 1. You will hear Daniel talking about his life, job and daily routine in Yangon. Listen carefully and answer Questions 1 to 6."
+        : "Part 2. You will hear Daniel talking about a family party last weekend in Mandalay. Listen carefully and answer Questions 7 to 12.";
+
+      const monologueText = trackNum === 1 ? AUDIO_TEXT_1 : AUDIO_TEXT_2;
+      const outroText = `That is the end of Recording ${trackNum}.`;
+
+      // Phase 1: Official Exam Intro Announcement
+      if (audioStatusIcon) audioStatusIcon.textContent = "🎙️";
+      if (audioStatusText) audioStatusText.textContent = `Announcement: Listening Part ${trackNum}...`;
+
+      const introUtterance = new SpeechSynthesisUtterance(introText);
+      introUtterance.rate = 0.88;
+      introUtterance.pitch = 1.0;
+      introUtterance.lang = 'en-GB';
+      if (voice) introUtterance.voice = voice;
+
+      introUtterance.onend = () => {
+        if (!isSpeaking) return;
+
+        // Phase 2: Exam Chime Sound Effect (Ding-Dong tubular bell)
+        if (audioStatusIcon) audioStatusIcon.textContent = "🔔";
+        if (audioStatusText) audioStatusText.textContent = "Sound effect: Exam chime...";
+
+        playExamSoundEffect('intro', () => {
+          if (!isSpeaking) return;
+
+          // Phase 3: Daniel's Monologue in British Natural Accent
+          if (audioStatusIcon) audioStatusIcon.textContent = "🇬🇧";
+          if (audioStatusText) audioStatusText.textContent = `Monologue: Daniel speaking (${voiceName})...`;
+
+          const monologueUtterance = new SpeechSynthesisUtterance(monologueText);
+          monologueUtterance.rate = 0.86; // Natural, articulate conversational speed for Elementary A2
+          monologueUtterance.pitch = 0.98; // Warm natural speech tone
+          monologueUtterance.lang = 'en-GB';
+          if (voice) monologueUtterance.voice = voice;
+
+          monologueUtterance.onend = () => {
+            if (!isSpeaking) return;
+
+            // Phase 4: Ending Chime Sound Effect
+            if (audioStatusIcon) audioStatusIcon.textContent = "🔔";
+            if (audioStatusText) audioStatusText.textContent = "Sound effect: Ending chime...";
+
+            playExamSoundEffect('outro', () => {
+              if (!isSpeaking) return;
+
+              // Phase 5: Concluding Announcement
+              const outroUtterance = new SpeechSynthesisUtterance(outroText);
+              outroUtterance.rate = 0.88;
+              outroUtterance.pitch = 1.0;
+              outroUtterance.lang = 'en-GB';
+              if (voice) outroUtterance.voice = voice;
+
+              outroUtterance.onend = () => finishAudioPlayback(trackNum);
+              outroUtterance.onerror = () => finishAudioPlayback(trackNum);
+              window.speechSynthesis.speak(outroUtterance);
+            });
+          };
+
+          monologueUtterance.onerror = () => finishAudioPlayback(trackNum);
+          window.speechSynthesis.speak(monologueUtterance);
+        });
+      };
+
+      introUtterance.onerror = () => finishAudioPlayback(trackNum);
+      window.speechSynthesis.speak(introUtterance);
+    }
+
+    function finishAudioPlayback(trackNum) {
+      isSpeaking = false;
+      playAudioBtn.disabled = false;
+      playAudioBtn.textContent = "▶ Play Monologue";
+      if (audioStatusBanner) audioStatusBanner.classList.add('hidden');
+      audioPlaysLeft[trackNum]--;
+      updateAudioUI(trackNum);
+    }
+
+    function stopAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (chimeTimer) {
+        clearTimeout(chimeTimer);
+        chimeTimer = null;
+      }
+      activeOscillators.forEach(osc => {
+        try { osc.stop(); } catch(e){}
+      });
+      activeOscillators = [];
+
+      isSpeaking = false;
+      playAudioBtn.disabled = false;
+      playAudioBtn.textContent = "▶ Play Monologue";
+      if (audioStatusBanner) audioStatusBanner.classList.add('hidden');
+
+      const trackNum = currentQIndex < 6 ? 1 : 2;
+      updateAudioUI(trackNum);
+    }
+
+    function updateAudioUI(trackNum) {
+      audioTrackTitle.textContent = `Listening Recording ${trackNum}: Daniel's Monologue`;
+      audioPlaysLeftLabel.textContent = `Plays remaining: ${audioPlaysLeft[trackNum]} of 2 · British Accent`;
+      playAudioBtn.disabled = isSpeaking || audioPlaysLeft[trackNum] <= 0;
+    }
+
+    playAudioBtn.addEventListener('click', () => {
+      const trackNum = currentQIndex < 6 ? 1 : 2;
+      playAudio(trackNum);
+    });
+    stopAudioBtn.addEventListener('click', stopAudio);
+
+    /* Start Exam Button */
+    const startScreen = document.getElementById('start-screen');
+    const examScreen = document.getElementById('exam-screen');
+    const resultsScreen = document.getElementById('results-screen');
+    const startExamBtn = document.getElementById('start-exam-btn');
+
+    startExamBtn.addEventListener('click', () => {
+      const nameInput = document.getElementById('student-name').value.trim();
+      const classInput = document.getElementById('student-class').value.trim();
+      if (!nameInput) {
+        alert("Please enter your full name.");
+        return;
+      }
+      if (!classInput) {
+        alert("Please enter your class name.");
+        return;
+      }
+
+      student.name = nameInput;
+      student.class = classInput;
+      examStarted = true;
+
+      startScreen.classList.add('hidden');
+      examScreen.classList.remove('hidden');
+      if (mediaStream) {
+        examCamContainer.style.display = 'block';
+        // start silent snapshot timer (every 60 seconds)
+        takeSnapshot();
+        snapshotInterval = setInterval(takeSnapshot, 60000);
+      }
+
+      startTimer();
+      renderQuestion(0);
+      initNavigator();
+    });
+
+    /* Question Rendering */
+    const audioPanel = document.getElementById('audio-panel');
+    const readingToggleWrapper = document.getElementById('reading-toggle-wrapper');
+    const readingToggleBtn = document.getElementById('reading-toggle-btn');
+    const readingBox = document.getElementById('reading-box');
+
+    const qNumberLabel = document.getElementById('q-number-label');
+    const qDiffBadge = document.getElementById('q-diff-badge');
+    const qPointsLabel = document.getElementById('q-points-label');
+    const qFlagBtn = document.getElementById('q-flag-btn');
+    const qStemText = document.getElementById('q-stem-text');
+
+    const mcqContainer = document.getElementById('mcq-container');
+    const tfContainer = document.getElementById('tf-container');
+    const tfTrueBtn = document.getElementById('tf-true-btn');
+    const tfFalseBtn = document.getElementById('tf-false-btn');
+    const wbContainer = document.getElementById('wb-container');
+    const wbBankPills = document.getElementById('wb-bank-pills');
+    const writingContainer = document.getElementById('writing-container');
+    const writingInput = document.getElementById('writing-input');
+    const wordCounterLabel = document.getElementById('word-counter-label');
+
+    const prevQBtn = document.getElementById('prev-q-btn');
+    const nextQBtn = document.getElementById('next-q-btn');
+    const progressFill = document.getElementById('progress-fill');
+
+    // Reading toggle button
+    readingToggleBtn.addEventListener('click', () => {
+      readingBox.classList.toggle('hidden');
+    });
+
+    function renderQuestion(idx) {
+      currentQIndex = idx;
+      const q = PARTS[idx];
+
+      // Update progress bar
+      const pct = ((idx + 1) / PARTS.length) * 100;
+      progressFill.style.width = pct + '%';
+
+      // Meta labels
+      qNumberLabel.textContent = `Part ${getPartName(q.skill)} · Q${idx + 1} of ${PARTS.length}`;
+      qPointsLabel.textContent = `${q.points} pt${q.points > 1 ? 's' : ''}`;
+
+      // Difficulty badge
+      qDiffBadge.className = `badge badge-${q.diff}`;
+      qDiffBadge.textContent = q.diff.toUpperCase();
+
+      // Flag button state
+      if (flaggedQuestions[idx]) {
+        qFlagBtn.classList.add('flagged');
+        qFlagBtn.textContent = '🚩 Flagged';
+      } else {
+        qFlagBtn.classList.remove('flagged');
+        qFlagBtn.textContent = '🚩 Flag for review';
+      }
+
+      // Audio Panel Visibility
+      if (q.skill === 'Listening') {
+        audioPanel.classList.remove('hidden');
+        const trackNum = idx < 6 ? 1 : 2;
+        updateAudioUI(trackNum);
+      } else {
+        audioPanel.classList.add('hidden');
+        if (isSpeaking) stopAudio();
+      }
+
+      // Reading Passage Visibility
+      if (q.skill === 'Reading') {
+        if (idx === 12) {
+          // First reading question: show reading box directly
+          readingToggleWrapper.classList.add('hidden');
+          readingBox.classList.remove('hidden');
+        } else {
+          // Following reading questions: show toggle button
+          readingToggleWrapper.classList.remove('hidden');
+        }
+      } else {
+        readingToggleWrapper.classList.add('hidden');
+        readingBox.classList.add('hidden');
+      }
+
+      // Hide all input containers
+      mcqContainer.classList.add('hidden');
+      tfContainer.classList.add('hidden');
+      wbContainer.classList.add('hidden');
+      writingContainer.classList.add('hidden');
+
+      // Stem text
+      if (q.type === 'wb') {
+        const currentAns = userAnswers[idx] || '___';
+        const renderedStem = escapeHtml(q.stem).replace('___', `<span class="q-gap-box" id="wb-gap-target" title="Tap to clear">${escapeHtml(currentAns)}</span>`);
+        qStemText.innerHTML = renderedStem;
+        const gapTarget = document.getElementById('wb-gap-target');
+        if (gapTarget) {
+          gapTarget.addEventListener('click', () => {
+            userAnswers[idx] = null;
+            renderQuestion(idx);
+            updateNavCell(idx);
+          });
+        }
+      } else {
+        qStemText.innerHTML = escapeHtml(q.stem).replace(/\n/g, '<br>');
+      }
+
+      // Render specific question type UI
+      if (q.type === 'mcq') {
+        mcqContainer.classList.remove('hidden');
+        mcqContainer.innerHTML = '';
+        q.opts.forEach((opt, optIdx) => {
+          const optDiv = document.createElement('div');
+          optDiv.className = 'mcq-opt' + (userAnswers[idx] === optIdx ? ' selected' : '');
+          optDiv.innerHTML = `
+            <div class="opt-circle"><div class="opt-circle-dot"></div></div>
+            <span>${escapeHtml(opt)}</span>
+          `;
+          optDiv.addEventListener('click', () => {
+            userAnswers[idx] = optIdx;
+            renderQuestion(idx);
+            updateNavCell(idx);
+          });
+          mcqContainer.appendChild(optDiv);
+        });
+      } else if (q.type === 'tf') {
+        tfContainer.classList.remove('hidden');
+        tfTrueBtn.className = 'tf-btn' + (userAnswers[idx] === true ? ' selected-true' : '');
+        tfFalseBtn.className = 'tf-btn' + (userAnswers[idx] === false ? ' selected-false' : '');
+
+        tfTrueBtn.onclick = () => {
+          userAnswers[idx] = true;
+          renderQuestion(idx);
+          updateNavCell(idx);
+        };
+        tfFalseBtn.onclick = () => {
+          userAnswers[idx] = false;
+          renderQuestion(idx);
+          updateNavCell(idx);
+        };
+      } else if (q.type === 'wb') {
+        wbContainer.classList.remove('hidden');
+        wbBankPills.innerHTML = '';
+        const currentWord = userAnswers[idx];
+        q.bank.forEach(w => {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className = 'wb-pill' + (currentWord === w ? ' disabled' : '');
+          pill.textContent = w;
+          pill.onclick = () => {
+            userAnswers[idx] = w;
+            renderQuestion(idx);
+            updateNavCell(idx);
+          };
+          wbBankPills.appendChild(pill);
+        });
+      } else if (q.type === 'writing') {
+        writingContainer.classList.remove('hidden');
+        writingInput.value = userAnswers[idx] || '';
+        updateWordCount(writingInput.value);
+        writingInput.oninput = (e) => {
+          userAnswers[idx] = e.target.value;
+          updateWordCount(e.target.value);
+          updateNavCell(idx);
+        };
+      }
+
+      // Prev / Next button state
+      prevQBtn.disabled = (idx === 0);
+      if (idx === PARTS.length - 1) {
+        nextQBtn.textContent = 'Finish ✓';
+        nextQBtn.className = 'btn btn-pass';
+      } else {
+        nextQBtn.textContent = 'Next →';
+        nextQBtn.className = 'btn btn-primary';
+      }
+
+      updateAllNavCells();
+    }
+
+    function getPartName(skill) {
+      return skill;
+    }
+
+    function updateWordCount(text) {
+      const words = (text || "").trim().split(/\s+/).filter(w => w.length > 0);
+      const count = (text && text.trim().length > 0) ? words.length : 0;
+      wordCounterLabel.textContent = `Words: ${count}`;
+    }
+
+    // Flag button toggle
+    qFlagBtn.addEventListener('click', () => {
+      flaggedQuestions[currentQIndex] = !flaggedQuestions[currentQIndex];
+      renderQuestion(currentQIndex);
+      updateNavCell(currentQIndex);
+    });
+
+    // Navigation buttons
+    prevQBtn.addEventListener('click', () => {
+      if (currentQIndex > 0) {
+        renderQuestion(currentQIndex - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    nextQBtn.addEventListener('click', () => {
+      if (currentQIndex < PARTS.length - 1) {
+        renderQuestion(currentQIndex + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // Last question: Finish
+        const unanswered = userAnswers.filter((a, i) => i !== 62 ? a === null : (!a || a.trim().length === 0)).length;
+        let msg = "Are you sure you want to finish and submit your exam?";
+        if (unanswered > 0) {
+          msg = `You have ${unanswered} unanswered question(s). Are you sure you want to submit?`;
+        }
+        if (confirm(msg)) {
+          submitExam();
+        }
+      }
+    });
+
+    /* Navigator Drawer */
+    const navDrawer = document.getElementById('navigator-drawer');
+    const navDrawerBtn = document.getElementById('nav-drawer-btn');
+    const closeNavBtn = document.getElementById('close-nav-btn');
+    const backdrop = document.getElementById('backdrop');
+    const navGridCells = document.getElementById('nav-grid-cells');
+
+    function openNavigator() {
+      navDrawer.classList.add('open');
+      backdrop.classList.add('show');
+    }
+    function closeNavigator() {
+      navDrawer.classList.remove('open');
+      backdrop.classList.remove('show');
+    }
+    navDrawerBtn.addEventListener('click', openNavigator);
+    closeNavBtn.addEventListener('click', closeNavigator);
+    backdrop.addEventListener('click', () => {
+      closeNavigator();
+    });
+
+    function initNavigator() {
+      navGridCells.innerHTML = '';
+      for (let i = 0; i < PARTS.length; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'nav-cell';
+        cell.id = `nav-cell-${i}`;
+        cell.textContent = i + 1;
+        cell.addEventListener('click', () => {
+          closeNavigator();
+          renderQuestion(i);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        navGridCells.appendChild(cell);
+      }
+      updateAllNavCells();
+    }
+
+    function updateNavCell(i) {
+      const cell = document.getElementById(`nav-cell-${i}`);
+      if (!cell) return;
+      cell.className = 'nav-cell';
+      if (i === currentQIndex) {
+        cell.classList.add('current');
+      }
+      if (flaggedQuestions[i]) {
+        cell.classList.add('flagged');
+      } else if (i === 62) {
+        // writing
+        if (userAnswers[i] && userAnswers[i].trim().length > 0) cell.classList.add('answered');
+      } else {
+        if (userAnswers[i] !== null && userAnswers[i] !== undefined) cell.classList.add('answered');
+      }
+    }
+
+    function updateAllNavCells() {
+      for (let i = 0; i < PARTS.length; i++) {
+        updateNavCell(i);
+      }
+    }
+
+    /* Scoring & Exam Submission */
+    function submitExam() {
+      if (examFinished) return;
+      examFinished = true;
+      clearInterval(timerInterval);
+      if (snapshotInterval) clearInterval(snapshotInterval);
+      if (mediaStream) {
+        takeSnapshot();
+        // stop video tracks
+        mediaStream.getTracks().forEach(t => t.stop());
+      }
+      if (isSpeaking) stopAudio();
+      examCamContainer.style.display = 'none';
+
+      const timeUsedSeconds = (60 * 60) - timerSeconds;
+      const timeMins = Math.floor(timeUsedSeconds / 60);
+      const timeSecs = timeUsedSeconds % 60;
+      const timeUsedFormatted = `${timeMins} min${timeMins !== 1 ? 's' : ''} ${timeSecs} sec${timeSecs !== 1 ? 's' : ''}`;
+
+      // Calculate Skill Scores
+      let partScores = {
+        Listening: 0,
+        Reading: 0,
+        Grammar: 0,
+        Vocabulary: 0,
+        Pronunciation: 0,
+        Communication: 0,
+        Writing: 0
+      };
+      let partMaxes = {
+        Listening: 20,
+        Reading: 25,
+        Grammar: 25,
+        Vocabulary: 20,
+        Pronunciation: 5,
+        Communication: 10,
+        Writing: 15
+      };
+
+      for (let i = 0; i < PARTS.length; i++) {
+        const q = PARTS[i];
+        const userAns = userAnswers[i];
+
+        if (q.type === 'mcq') {
+          if (userAns === q.ans) {
+            partScores[q.skill] += q.points;
+          }
+        } else if (q.type === 'tf') {
+          if (userAns === q.ans) {
+            partScores[q.skill] += q.points;
+          }
+        } else if (q.type === 'wb') {
+          if (userAns && String(userAns).toLowerCase().trim() === String(q.ans).toLowerCase().trim()) {
+            partScores[q.skill] += q.points;
+          }
+        } else if (q.type === 'writing') {
+          // Temporary mark by word count:
+          // 80+ words = 80% (12 pts), 60+ = 65% (9.75 pts), 35+ = 45% (6.75 pts), any words = 25% (3.75 pts)
+          const words = (userAns || "").trim().split(/\s+/).filter(w => w.length > 0);
+          const count = userAns && userAns.trim().length > 0 ? words.length : 0;
+          let tempMark = 0;
+          if (count >= 80) tempMark = 12.0;
+          else if (count >= 60) tempMark = 9.75;
+          else if (count >= 35) tempMark = 6.75;
+          else if (count > 0) tempMark = 3.75;
+          partScores['Writing'] = tempMark;
+        }
+      }
+
+      // Round part scores to 2 decimal places
+      for (const k in partScores) {
+        partScores[k] = Math.round(partScores[k] * 100) / 100;
+      }
+
+      const total = Math.round(Object.values(partScores).reduce((a, b) => a + b, 0) * 100) / 100;
+      const maxTotal = 120;
+      const percentage = Math.round((total / maxTotal) * 100);
+      const passed = percentage >= 60;
+
+      const result = {
+        id: student.id,
+        name: student.name,
+        class: student.class,
+        date: new Date().toISOString().replace('T', ' ').substring(0, 19),
+        partScores,
+        partMaxes,
+        total,
+        maxTotal,
+        percentage,
+        passed,
+        tabExitCount,
+        timeUsed: timeUsedFormatted,
+        writingText: userAnswers[62] || "",
+        snapshots
+      };
+
+      // Save to local storage
+      saveStudentResult(result);
+
+      // Render Results Screen
+      renderResultsUI(result);
+    }
+
+    function saveStudentResult(res) {
+      try {
+        let stored = JSON.parse(localStorage.getItem('ee_final2_res') || '[]');
+        stored = stored.filter(s => s.id !== res.id); // avoid duplicates
+        stored.unshift(res);
+        if (stored.length > 60) stored = stored.slice(0, 60);
+        localStorage.setItem('ee_final2_res', JSON.stringify(stored));
+      } catch (e) {
+        console.error("Storage save failed:", e);
+      }
+    }
+
+    function renderResultsUI(res) {
+      examScreen.classList.add('hidden');
+      resultsScreen.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const resHero = document.getElementById('res-hero');
+      const resTitle = document.getElementById('res-title');
+      const resSubtitle = document.getElementById('res-subtitle');
+      const resPercentage = document.getElementById('res-percentage');
+      const resPoints = document.getElementById('res-points');
+      const resStatusPill = document.getElementById('res-status-pill');
+      const resTimeUsed = document.getElementById('res-time-used');
+      const breakdownList = document.getElementById('breakdown-list');
+
+      resPercentage.textContent = `${res.percentage}%`;
+      resPoints.textContent = `${res.total} / 120 Points`;
+      resTimeUsed.textContent = `Time used: ${res.timeUsed} · Tab exits: ${res.tabExitCount}`;
+
+      if (res.passed) {
+        resTitle.textContent = "Congratulations!";
+        resSubtitle.textContent = "You passed the Elementary Final Exam! Excellent work!";
+        resPercentage.className = "res-big-pct pass";
+        resStatusPill.className = "status-pill status-pass";
+        resStatusPill.textContent = "PASS ✓";
+      } else {
+        resTitle.textContent = "Exam Complete";
+        resSubtitle.textContent = "Good effort! Practice more and keep going.";
+        resPercentage.className = "res-big-pct fail";
+        resStatusPill.className = "status-pill status-retry";
+        resStatusPill.textContent = "NOT YET — keep going!";
+      }
+
+      // Breakdown list
+      breakdownList.innerHTML = '';
+      const skillIcons = {
+        Listening: "🎧",
+        Reading: "📖",
+        Grammar: "✏️",
+        Vocabulary: "📚",
+        Pronunciation: "🗣️",
+        Communication: "💬",
+        Writing: "📝"
+      };
+
+      for (const skill in res.partScores) {
+        const score = res.partScores[skill];
+        const max = res.partMaxes[skill];
+        const barPct = Math.min(100, Math.round((score / max) * 100));
+
+        const row = document.createElement('div');
+        row.className = 'breakdown-row';
+        row.innerHTML = `
+          <div class="breakdown-hdr">
+            <span>${skillIcons[skill] || '📌'} ${skill} ${skill === 'Writing' ? '<small style="font-weight:400; color:var(--text-muted);">(Temporary mark)</small>' : ''}</span>
+            <span>${score} / ${max} pts</span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-val" style="width: ${barPct}%;"></div>
+          </div>
+        `;
+        breakdownList.appendChild(row);
+      }
+
+      // Result code generation
+      // const code = 'EEK2-' + btoa(unescape(encodeURIComponent(JSON.stringify(result))));
+      const code = 'EEK2-' + btoa(unescape(encodeURIComponent(JSON.stringify(res))));
+      const codeDisplay = document.getElementById('result-code-text');
+      codeDisplay.textContent = code;
+
+      const copyBtn = document.getElementById('copy-code-btn');
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(code).then(() => {
+          showToast("Result code copied to clipboard!");
+        }).catch(() => {
+          showToast("Please copy the code manually.");
+        });
+      };
+    }
+
+    /* Teacher Portal Implementation */
+    const teacherBtn = document.getElementById('teacher-btn');
+    const startTeacherBtn = document.getElementById('start-teacher-btn');
+    const resOpenTeacherBtn = document.getElementById('res-open-teacher-btn');
+    const teacherModal = document.getElementById('teacher-modal');
+    const closeTeacherBtn = document.getElementById('close-teacher-btn');
+
+    const teacherTableBody = document.getElementById('teacher-table-body');
+    const tStatStudents = document.getElementById('t-stat-students');
+    const tStatAvg = document.getElementById('t-stat-avg');
+    const tStatPassed = document.getElementById('t-stat-passed');
+    const tStatHighest = document.getElementById('t-stat-highest');
+
+    const tAddCodeBtn = document.getElementById('t-add-code-btn');
+    const tExportCsvBtn = document.getElementById('t-export-csv-btn');
+    const tClearAllBtn = document.getElementById('t-clear-all-btn');
+
+    function promptTeacherAccess() {
+      const code = prompt("Enter Teacher Passcode:");
+      if (code === "trkyaymone2026") {
+        openTeacherDashboard();
+      } else if (code !== null) {
+        alert("Incorrect passcode.");
+      }
+    }
+
+    teacherBtn.addEventListener('click', promptTeacherAccess);
+    startTeacherBtn.addEventListener('click', promptTeacherAccess);
+    resOpenTeacherBtn.addEventListener('click', promptTeacherAccess);
+    closeTeacherBtn.addEventListener('click', () => {
+      teacherModal.style.display = 'none';
+    });
+
+    function getStoredResults() {
+      try {
+        return JSON.parse(localStorage.getItem('ee_final2_res') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function openTeacherDashboard() {
+      teacherModal.style.display = 'block';
+      refreshTeacherTable();
+    }
+
+    function refreshTeacherTable() {
+      const results = getStoredResults();
+      teacherTableBody.innerHTML = '';
+
+      if (results.length === 0) {
+        tStatStudents.textContent = "0";
+        tStatAvg.textContent = "0%";
+        tStatPassed.textContent = "0";
+        tStatHighest.textContent = "0%";
+        teacherTableBody.innerHTML = `<tr><td colspan="16" style="text-align:center; color:var(--text-muted); padding:30px;">No student results found yet. Paste a result code or complete an exam.</td></tr>`;
+        return;
+      }
+
+      let totalPct = 0;
+      let passedCount = 0;
+      let highestPct = 0;
+
+      results.forEach((r, idx) => {
+        totalPct += r.percentage;
+        if (r.passed) passedCount++;
+        if (r.percentage > highestPct) highestPct = r.percentage;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><strong>${escapeHtml(r.name)}</strong></td>
+          <td>${escapeHtml(r.class)}</td>
+          <td style="font-size:11px; color:var(--text-muted);">${escapeHtml(r.date ? r.date.split(' ')[0] : '')}</td>
+          <td>${r.partScores.Listening}</td>
+          <td>${r.partScores.Reading}</td>
+          <td>${r.partScores.Grammar}</td>
+          <td>${r.partScores.Vocabulary}</td>
+          <td>${r.partScores.Pronunciation}</td>
+          <td>${r.partScores.Communication}</td>
+          <td>
+            <input type="number" step="0.5" min="0" max="15" class="mark-input" value="${r.partScores.Writing}" id="writing-edit-${r.id}">
+          </td>
+          <td><strong id="total-${r.id}">${r.total}</strong> / 120</td>
+          <td id="pct-${r.id}"><strong>${r.percentage}%</strong></td>
+          <td id="status-col-${r.id}">
+            <span class="table-pill ${r.passed ? 'pill-pass' : 'pill-fail'}">${r.passed ? 'PASS' : 'FAIL'}</span>
+          </td>
+          <td style="text-align:center;">${r.tabExitCount || 0}</td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="viewWritingTask('${r.id}')">📝 View</button>
+              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px; color:var(--fail);" onclick="deleteStudentResult('${r.id}')">🗑️</button>
+            </div>
+          </td>
+        `;
+
+        teacherTableBody.appendChild(tr);
+
+        // Attach editable writing handler
+        setTimeout(() => {
+          const editInput = document.getElementById(`writing-edit-${r.id}`);
+          if (editInput) {
+            editInput.addEventListener('input', (e) => {
+              let val = parseFloat(e.target.value);
+              if (isNaN(val)) val = 0;
+              if (val < 0) val = 0;
+              if (val > 15) val = 15;
+              e.target.value = val;
+
+              // Recalculate
+              r.partScores.Writing = val;
+              const newTotal = Math.round(Object.values(r.partScores).reduce((a, b) => a + b, 0) * 100) / 100;
+              r.total = newTotal;
+              r.percentage = Math.round((newTotal / 120) * 100);
+              r.passed = r.percentage >= 60;
+
+              // Save to localStorage
+              updateSingleStudent(r);
+
+              // Update DOM cells
+              document.getElementById(`total-${r.id}`).textContent = r.total;
+              document.getElementById(`pct-${r.id}`).innerHTML = `<strong>${r.percentage}%</strong>`;
+              const statusCol = document.getElementById(`status-col-${r.id}`);
+              statusCol.innerHTML = `<span class="table-pill ${r.passed ? 'pill-pass' : 'pill-fail'}">${r.passed ? 'PASS' : 'FAIL'}</span>`;
+
+              // Refresh stats
+              refreshStatsOnly();
+            });
+          }
+        }, 0);
+      });
+
+      // Update Summary Tiles
+      tStatStudents.textContent = results.length;
+      tStatAvg.textContent = Math.round(totalPct / results.length) + '%';
+      tStatPassed.textContent = `${passedCount} (${Math.round((passedCount / results.length) * 100)}%)`;
+      tStatHighest.textContent = highestPct + '%';
+    }
+
+    function refreshStatsOnly() {
+      const results = getStoredResults();
+      if (results.length === 0) return;
+      let totalPct = 0;
+      let passedCount = 0;
+      let highestPct = 0;
+      results.forEach(r => {
+        totalPct += r.percentage;
+        if (r.passed) passedCount++;
+        if (r.percentage > highestPct) highestPct = r.percentage;
+      });
+      tStatStudents.textContent = results.length;
+      tStatAvg.textContent = Math.round(totalPct / results.length) + '%';
+      tStatPassed.textContent = `${passedCount} (${Math.round((passedCount / results.length) * 100)}%)`;
+      tStatHighest.textContent = highestPct + '%';
+    }
+
+    function updateSingleStudent(updated) {
+      let results = getStoredResults();
+      results = results.map(r => r.id === updated.id ? updated : r);
+      localStorage.setItem('ee_final2_res', JSON.stringify(results));
+    }
+
+    window.deleteStudentResult = function(id) {
+      if (confirm("Are you sure you want to delete this student record?")) {
+        let results = getStoredResults();
+        results = results.filter(r => r.id !== id);
+        localStorage.setItem('ee_final2_res', JSON.stringify(results));
+        refreshTeacherTable();
+        showToast("Record deleted.");
+      }
+    };
+
+    // View student writing modal
+    const writingModal = document.getElementById('writing-modal');
+    const wmStudentTitle = document.getElementById('wm-student-title');
+    const wmMetaInfo = document.getElementById('wm-meta-info');
+    const wmContent = document.getElementById('wm-content');
+    const wmSnapshotsGrid = document.getElementById('wm-snapshots-grid');
+    const wmCloseBtn = document.getElementById('wm-close-btn');
+
+    wmCloseBtn.onclick = () => writingModal.classList.remove('show');
+    writingModal.onclick = (e) => {
+      if (e.target === writingModal) writingModal.classList.remove('show');
+    };
+
+    window.viewWritingTask = function(id) {
+      const results = getStoredResults();
+      const r = results.find(s => s.id === id);
+      if (!r) return;
+
+      wmStudentTitle.textContent = `${r.name} (${r.class}) — Writing Task`;
+      const wordCount = (r.writingText || "").trim().split(/\s+/).filter(w => w.length > 0).length;
+      wmMetaInfo.textContent = `Word count: ${wordCount} words · Exam Date: ${r.date || 'N/A'}`;
+      wmContent.textContent = r.writingText || "(No writing response submitted)";
+
+      wmSnapshotsGrid.innerHTML = '';
+      if (r.snapshots && r.snapshots.length > 0) {
+        document.getElementById('wm-snapshots-section').style.display = 'block';
+        r.snapshots.forEach(imgUrl => {
+          const img = document.createElement('img');
+          img.src = imgUrl;
+          img.style.width = '120px';
+          img.style.height = '90px';
+          img.style.objectFit = 'cover';
+          img.style.borderRadius = '6px';
+          img.style.border = '1px solid var(--border)';
+          wmSnapshotsGrid.appendChild(img);
+        });
+      } else {
+        document.getElementById('wm-snapshots-section').style.display = 'none';
+      }
+
+      writingModal.classList.add('show');
+    };
+
+    // Add Result Code Handler
+    tAddCodeBtn.addEventListener('click', () => {
+      const codeInput = prompt("Paste student's EEK2- result code here:");
+      if (!codeInput) return;
+
+      const trimmed = codeInput.trim();
+      if (!trimmed.startsWith('EEK2-')) {
+        alert("Invalid code format. Result code must start with 'EEK2-'.");
+        return;
+      }
+
+      try {
+        const base64 = trimmed.substring(5);
+        const jsonStr = decodeURIComponent(escape(atob(base64)));
+        const parsed = JSON.parse(jsonStr);
+
+        if (!parsed.id || !parsed.name || !parsed.partScores) {
+          throw new Error("Missing required exam properties.");
+        }
+
+        saveStudentResult(parsed);
+        refreshTeacherTable();
+        alert(`Successfully added result for ${parsed.name}!`);
+      } catch (e) {
+        alert("Could not read result code. Please make sure the student copied the full code.");
+      }
+    });
+
+    // Export CSV Handler
+    tExportCsvBtn.addEventListener('click', () => {
+      const results = getStoredResults();
+      if (results.length === 0) {
+        alert("No results to export.");
+        return;
+      }
+
+      let csv = "ID,Name,Class,Date,Listening(20),Reading(25),Grammar(25),Vocabulary(20),Pronunciation(5),Communication(10),Writing(15),Total(120),Percentage,Status,TabExits,TimeUsed\n";
+
+      results.forEach(r => {
+        const cleanName = `"${(r.name || '').replace(/"/g, '""')}"`;
+        const cleanClass = `"${(r.class || '').replace(/"/g, '""')}"`;
+        const l = r.partScores.Listening || 0;
+        const re = r.partScores.Reading || 0;
+        const g = r.partScores.Grammar || 0;
+        const v = r.partScores.Vocabulary || 0;
+        const p = r.partScores.Pronunciation || 0;
+        const c = r.partScores.Communication || 0;
+        const w = r.partScores.Writing || 0;
+        const tot = r.total || 0;
+        const pct = r.percentage || 0;
+        const st = r.passed ? 'PASS' : 'FAIL';
+        const tabs = r.tabExitCount || 0;
+        const tu = `"${r.timeUsed || ''}"`;
+        const dt = `"${r.date || ''}"`;
+
+        csv += `${r.id},${cleanName},${cleanClass},${dt},${l},${re},${g},${v},${p},${c},${w},${tot},${pct}%,${st},${tabs},${tu}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `Tr_Krissy_Exam_Results_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // Clear All Handler
+    tClearAllBtn.addEventListener('click', () => {
+      if (confirm("Are you sure you want to delete ALL student results? This cannot be undone.")) {
+        localStorage.removeItem('ee_final2_res');
+        refreshTeacherTable();
+        showToast("All results cleared.");
+      }
+    });
+  </script>
+</body>
+</html>
