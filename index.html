@@ -1373,9 +1373,14 @@ Su Su
           Copy this code and send it to Tr. Krissy on Telegram or Viber.
         </p>
         <div class="code-display" id="result-code-text">EEK2-...</div>
-        <button type="button" class="btn btn-primary" id="copy-code-btn" style="padding: 10px 20px;">
-          📋 Copy My Result Code
-        </button>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-primary" id="copy-code-btn" style="padding: 10px 20px;">
+            📋 Copy My Result Code
+          </button>
+          <button type="button" class="btn btn-secondary" id="res-download-doc-btn" style="padding: 10px 20px; background:#2b579a; color:#fff; border:none; font-weight:700;">
+            📄 Download Word (.doc) Result Slip
+          </button>
+        </div>
       </div>
 
       <div style="text-align: center; margin-top: 20px;">
@@ -1449,9 +1454,12 @@ Su Su
       </div>
 
       <div class="card" style="display:flex; flex-wrap:wrap; gap: 10px; align-items:center; justify-content:space-between;">
-        <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+        <div style="display:flex; gap: 8px; flex-wrap:wrap; align-items:center;">
           <button type="button" class="btn btn-primary" id="t-add-code-btn">➕ Add Result Code</button>
+          <button type="button" class="btn btn-outline" id="t-export-word-all-btn" style="color: #2b579a; font-weight:700; border-color: #2b579a; background: var(--main-bg-tint);">📄 Export All to Word (.doc)</button>
           <button type="button" class="btn btn-outline" id="t-export-csv-btn">📥 Export CSV</button>
+          <button type="button" class="btn btn-outline" id="t-logo-btn">🖼️ School Logo</button>
+          <input type="file" id="t-logo-input" accept="image/*" style="display:none;">
         </div>
         <button type="button" class="btn btn-outline" id="t-clear-all-btn" style="color: var(--fail);">🗑️ Clear All</button>
       </div>
@@ -1470,12 +1478,12 @@ Su Su
               <th>Vocab (20)</th>
               <th>Pron (5)</th>
               <th>Comm (10)</th>
-              <th>Writing (15)</th>
+              <th style="min-width: 130px;">Writing (15)</th>
               <th>Total</th>
               <th>%</th>
               <th>Result</th>
               <th>Tabs</th>
-              <th>Actions</th>
+              <th style="min-width: 140px;">Actions</th>
             </tr>
           </thead>
           <tbody id="teacher-table-body">
@@ -1486,18 +1494,85 @@ Su Su
     </div>
   </div>
 
-  <!-- Writing Full View Modal -->
+  <!-- School Logo Manager Modal -->
+  <div id="logo-modal" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:450; display:none; align-items:center; justify-content:center; padding:16px;">
+    <div class="card" style="max-width: 440px; width:100%; border-radius:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="color:var(--main); font-size:17px; font-weight:800;">🏫 Exam &amp; Report Logo</h3>
+        <button type="button" class="icon-btn" id="close-logo-modal-btn">✕</button>
+      </div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+        This official EEK logo appears on all exported Microsoft Word (.doc) student certificates and score reports.
+      </p>
+      <div style="text-align:center; padding:16px; background:var(--card-subtle); border-radius:12px; margin-bottom:16px; border:1px solid var(--border);">
+        <img id="logo-preview-img" style="width:110px; height:110px; object-fit:contain; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.15);" alt="Official EEK Logo">
+        <div style="font-size:12px; font-weight:700; color:var(--main); margin-top:8px;">Easy English with Tr. Krissy (EEK)</div>
+      </div>
+      <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+        <button type="button" class="btn btn-outline" id="reset-logo-btn" style="font-size:12px;">Reset to Default</button>
+        <button type="button" class="btn btn-primary" id="upload-logo-btn" style="font-size:12px;">📤 Upload New Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Writing Full View & Grading Modal -->
   <div id="writing-modal">
-    <div class="writing-modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
-        <h3 style="color:var(--main); font-size:18px;" id="wm-student-title">Student's Writing Task</h3>
+    <div class="writing-modal-card" style="max-width: 760px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+        <div>
+          <h3 style="color:var(--main); font-size:19px; font-weight:800;" id="wm-student-title">Student's Writing Assessment</h3>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:3px;" id="wm-meta-info">Word count: 0 · Exam Date: N/A</div>
+        </div>
         <button type="button" class="icon-btn" id="wm-close-btn">✕</button>
       </div>
-      <div style="font-size:13px; color:var(--text-muted); margin-bottom: 12px;" id="wm-meta-info">Word count: 0</div>
-      <div style="background:var(--card-subtle); padding:16px; border-radius:10px; border:1px solid var(--border); font-size:14px; line-height:1.7; white-space:pre-wrap; color:var(--text); margin-bottom: 16px;" id="wm-content"></div>
-      <div id="wm-snapshots-section" style="margin-top: 14px;">
-        <h4 style="font-size: 14px; margin-bottom: 8px; color: var(--main);">Security Snapshots</h4>
-        <div id="wm-snapshots-grid" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px;"></div>
+
+      <!-- Writing Prompt Box -->
+      <div style="background:var(--main-bg-tint); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:14px; font-size:13px;">
+        <strong style="color:var(--main);">📌 Part 8 Task Prompt (Target: 60–80 words):</strong><br>
+        <span style="color:var(--text); line-height: 1.5;">Write an email back to Daniel. Introduce yourself, describe your job or studies, explain your daily routine, and talk about what you enjoy doing at the weekend.</span>
+      </div>
+
+      <!-- Student's Written Submission -->
+      <div style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+          <span style="font-weight:700; font-size:13px; color:var(--text);">✍️ Student's Submission:</span>
+          <span id="wm-word-badge" style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; background:var(--card-subtle); border:1px solid var(--border);">0 words</span>
+        </div>
+        <div style="background:var(--card-subtle); padding:16px; border-radius:10px; border:1.5px solid var(--border); font-size:14px; line-height:1.75; white-space:pre-wrap; color:var(--text); min-height: 90px; max-height: 220px; overflow-y:auto;" id="wm-content"></div>
+      </div>
+
+      <!-- Teacher Feedback & Grading Section -->
+      <div style="background:var(--card); border:1.5px solid var(--main); border-radius:12px; padding:16px; margin-bottom:16px;">
+        <h4 style="font-size: 14px; font-weight:800; color: var(--main); margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+          <span>👩‍🏫</span> Teacher's Evaluation &amp; Feedback (Included in Word Report)
+        </h4>
+        
+        <div style="display:grid; grid-template-columns: 1fr 140px; gap: 12px; margin-bottom: 12px;">
+          <div>
+            <label style="display:block; font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px;" for="wm-feedback-input">Teacher's Comments on Writing / Performance:</label>
+            <textarea id="wm-feedback-input" class="input-text" style="height: 68px; resize:vertical; font-size:13px; line-height:1.5;" placeholder="e.g. Excellent paragraph structure and vocabulary! Good use of adverbs of frequency. Well done!"></textarea>
+          </div>
+          <div>
+            <label style="display:block; font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px;" for="wm-score-input">Writing Score (/15):</label>
+            <input type="number" id="wm-score-input" step="0.5" min="0" max="15" class="input-text" style="font-size:16px; font-weight:800; text-align:center; padding:8px;" value="12">
+            <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:4px;">Max: 15.0 pts</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <button type="button" class="btn btn-primary" id="wm-save-btn" style="padding: 8px 16px; font-size: 13px;">
+            💾 Save Score &amp; Feedback
+          </button>
+          <button type="button" class="btn btn-secondary" id="wm-download-doc-btn" style="padding: 8px 16px; font-size: 13px; background:#2b579a; color:#ffffff; border:none; font-weight:700;">
+            📄 Download Word (.doc) with Logo
+          </button>
+        </div>
+      </div>
+
+      <!-- Security Snapshots if camera active -->
+      <div id="wm-snapshots-section" style="margin-top: 10px;">
+        <h4 style="font-size: 13px; font-weight:700; margin-bottom: 6px; color: var(--text-muted);">📷 Exam Session Snapshots</h4>
+        <div id="wm-snapshots-grid" style="display:flex; gap:8px; overflow-x:auto; padding-bottom:6px;"></div>
       </div>
     </div>
   </div>
@@ -2664,9 +2739,16 @@ Su Su
           showToast("Please copy the code manually.");
         });
       };
+
+      const resDownloadBtn = document.getElementById('res-download-doc-btn');
+      if (resDownloadBtn) {
+        resDownloadBtn.onclick = () => {
+          exportStudentWord(res.id, res);
+        };
+      }
     }
 
-    /* Teacher Portal Implementation */
+    /* Teacher Portal & Word Document Export with Official EEK Logo */
     const teacherBtn = document.getElementById('teacher-btn');
     const startTeacherBtn = document.getElementById('start-teacher-btn');
     const resOpenTeacherBtn = document.getElementById('res-open-teacher-btn');
@@ -2680,8 +2762,136 @@ Su Su
     const tStatHighest = document.getElementById('t-stat-highest');
 
     const tAddCodeBtn = document.getElementById('t-add-code-btn');
+    const tExportWordAllBtn = document.getElementById('t-export-word-all-btn');
     const tExportCsvBtn = document.getElementById('t-export-csv-btn');
     const tClearAllBtn = document.getElementById('t-clear-all-btn');
+
+    const tLogoBtn = document.getElementById('t-logo-btn');
+    const tLogoInput = document.getElementById('t-logo-input');
+    const logoModal = document.getElementById('logo-modal');
+    const closeLogoModalBtn = document.getElementById('close-logo-modal-btn');
+    const logoPreviewImg = document.getElementById('logo-preview-img');
+    const resetLogoBtn = document.getElementById('reset-logo-btn');
+    const uploadLogoBtn = document.getElementById('upload-logo-btn');
+
+    // Official EEK Vector Logo representation
+    const DEFAULT_EEK_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" width="360" height="360">
+  <defs>
+    <linearGradient id="eekBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#55269E" />
+      <stop offset="100%" stop-color="#3D147B" />
+    </linearGradient>
+  </defs>
+  <rect width="360" height="360" rx="44" fill="url(#eekBgGrad)" />
+  <line x1="205" y1="125" x2="225" y2="105" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+  <line x1="220" y1="140" x2="240" y2="120" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+  <line x1="280" y1="190" x2="295" y2="175" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+  <!-- Top-Left: White rounded square with purple E -->
+  <rect x="90" y="92" width="76" height="76" rx="16" fill="#ffffff" />
+  <path d="M107 110 h40 v9 h-28 v11 h25 v8 h-25 v12 h29 v9 h-41 z" fill="#54289E" />
+  <!-- Top-Right: Yellow diamond speech-bubble with rotated purple E -->
+  <g transform="translate(236, 130) rotate(45)">
+    <rect x="-38" y="-38" width="76" height="76" rx="16" fill="#FCCC06" />
+    <path d="M -30 22 L -45 36 L -16 36 Z" fill="#FCCC06" />
+    <path d="M -21 -21 h38 v8 h-26 v11 h24 v8 h-24 v11 h27 v9 h-39 z" fill="#54289E" />
+  </g>
+  <!-- Bottom-Left: Yellow rounded square with purple up-right arrow -->
+  <rect x="90" y="190" width="76" height="76" rx="16" fill="#FCCC06" />
+  <path d="M106 250 L144 212 M144 212 L116 212 M144 212 L144 240" stroke="#54289E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Bottom-Right: White rounded square with purple K -->
+  <rect x="194" y="190" width="76" height="76" rx="16" fill="#ffffff" />
+  <path d="M211 207 h11 v42 h-11 z M240 207 l-18 20 l21 22 h-15 l-14 -16 v-6 l15 -20 z" fill="#54289E" />
+</svg>`;
+
+    let cachedLogoPng = null;
+
+    function getLogoDataUrl(callback) {
+      const customLogo = localStorage.getItem('ee_custom_logo');
+      if (customLogo) {
+        callback(customLogo);
+        return;
+      }
+      if (cachedLogoPng) {
+        callback(cachedLogoPng);
+        return;
+      }
+
+      const img = new Image();
+      const svgBlob = new Blob([DEFAULT_EEK_LOGO_SVG], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 360;
+          canvas.height = 360;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          URL.revokeObjectURL(url);
+          const png = canvas.toDataURL('image/png');
+          cachedLogoPng = png;
+          callback(png);
+        } catch (e) {
+          URL.revokeObjectURL(url);
+          callback('data:image/svg+xml;utf8,' + encodeURIComponent(DEFAULT_EEK_LOGO_SVG));
+        }
+      };
+      img.onerror = () => {
+        callback('data:image/svg+xml;utf8,' + encodeURIComponent(DEFAULT_EEK_LOGO_SVG));
+      };
+      img.src = url;
+    }
+
+    function updateLogoModalPreview() {
+      getLogoDataUrl((url) => {
+        if (logoPreviewImg) logoPreviewImg.src = url;
+      });
+    }
+
+    if (tLogoBtn) {
+      tLogoBtn.onclick = () => {
+        updateLogoModalPreview();
+        logoModal.style.display = 'flex';
+        logoModal.classList.remove('hidden');
+      };
+    }
+    if (closeLogoModalBtn) {
+      closeLogoModalBtn.onclick = () => {
+        logoModal.style.display = 'none';
+        logoModal.classList.add('hidden');
+      };
+    }
+    if (logoModal) {
+      logoModal.onclick = (e) => {
+        if (e.target === logoModal) {
+          logoModal.style.display = 'none';
+          logoModal.classList.add('hidden');
+        }
+      };
+    }
+    if (uploadLogoBtn && tLogoInput) {
+      uploadLogoBtn.onclick = () => tLogoInput.click();
+      tLogoInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const dataUrl = evt.target.result;
+          localStorage.setItem('ee_custom_logo', dataUrl);
+          cachedLogoPng = null;
+          updateLogoModalPreview();
+          showToast("New school logo saved!");
+        };
+        reader.readAsDataURL(file);
+      };
+    }
+    if (resetLogoBtn) {
+      resetLogoBtn.onclick = () => {
+        localStorage.removeItem('ee_custom_logo');
+        cachedLogoPng = null;
+        updateLogoModalPreview();
+        showToast("Reset to default EEK logo.");
+      };
+    }
 
     function promptTeacherAccess() {
       const code = prompt("Enter Teacher Passcode:");
@@ -2734,6 +2944,9 @@ Su Su
         if (r.passed) passedCount++;
         if (r.percentage > highestPct) highestPct = r.percentage;
 
+        const words = (r.writingText || "").trim().split(/\s+/).filter(w => w.length > 0);
+        const wordCount = words.length;
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${idx + 1}</td>
@@ -2747,7 +2960,10 @@ Su Su
           <td>${r.partScores.Pronunciation}</td>
           <td>${r.partScores.Communication}</td>
           <td>
-            <input type="number" step="0.5" min="0" max="15" class="mark-input" value="${r.partScores.Writing}" id="writing-edit-${r.id}">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <input type="number" step="0.5" min="0" max="15" class="mark-input" value="${r.partScores.Writing}" id="writing-edit-${r.id}" title="Edit writing score">
+              <button type="button" class="btn btn-outline" style="padding:3px 7px; font-size:11px; white-space:nowrap;" onclick="viewWritingTask('${r.id}')" title="Click to review student writing &amp; give feedback">📝 ${wordCount}w</button>
+            </div>
           </td>
           <td><strong id="total-${r.id}">${r.total}</strong> / 120</td>
           <td id="pct-${r.id}"><strong>${r.percentage}%</strong></td>
@@ -2756,9 +2972,10 @@ Su Su
           </td>
           <td style="text-align:center;">${r.tabExitCount || 0}</td>
           <td>
-            <div style="display:flex; gap:6px;">
-              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="viewWritingTask('${r.id}')">📝 View</button>
-              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px; color:var(--fail);" onclick="deleteStudentResult('${r.id}')">🗑️</button>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button type="button" class="btn btn-outline" style="padding:4px 9px; font-size:12px; color:#2b579a; font-weight:700; border-color:#2b579a;" onclick="exportStudentWord('${r.id}')" title="Download Word Result (.doc) with Logo to send student">📄 Word</button>
+              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="viewWritingTask('${r.id}')" title="Full Assessment &amp; Feedback">👁️ Review</button>
+              <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px; color:var(--fail);" onclick="deleteStudentResult('${r.id}')" title="Delete record">🗑️</button>
             </div>
           </td>
         `;
@@ -2839,13 +3056,20 @@ Su Su
       }
     };
 
-    // View student writing modal
+    // View & Grade Student Writing Modal
     const writingModal = document.getElementById('writing-modal');
     const wmStudentTitle = document.getElementById('wm-student-title');
     const wmMetaInfo = document.getElementById('wm-meta-info');
     const wmContent = document.getElementById('wm-content');
+    const wmWordBadge = document.getElementById('wm-word-badge');
+    const wmFeedbackInput = document.getElementById('wm-feedback-input');
+    const wmScoreInput = document.getElementById('wm-score-input');
+    const wmSaveBtn = document.getElementById('wm-save-btn');
+    const wmDownloadDocBtn = document.getElementById('wm-download-doc-btn');
     const wmSnapshotsGrid = document.getElementById('wm-snapshots-grid');
     const wmCloseBtn = document.getElementById('wm-close-btn');
+
+    let currentReviewStudentId = null;
 
     wmCloseBtn.onclick = () => writingModal.classList.remove('show');
     writingModal.onclick = (e) => {
@@ -2857,10 +3081,28 @@ Su Su
       const r = results.find(s => s.id === id);
       if (!r) return;
 
-      wmStudentTitle.textContent = `${r.name} (${r.class}) — Writing Task`;
-      const wordCount = (r.writingText || "").trim().split(/\s+/).filter(w => w.length > 0).length;
-      wmMetaInfo.textContent = `Word count: ${wordCount} words · Exam Date: ${r.date || 'N/A'}`;
-      wmContent.textContent = r.writingText || "(No writing response submitted)";
+      currentReviewStudentId = id;
+      wmStudentTitle.textContent = `${r.name} (${r.class}) — Writing Task Assessment`;
+      
+      const words = (r.writingText || "").trim().split(/\s+/).filter(w => w.length > 0);
+      const wordCount = words.length;
+      let lengthNote = "";
+      if (wordCount >= 60 && wordCount <= 80) {
+        lengthNote = "✓ Perfect target range (60-80 words)";
+      } else if (wordCount > 80) {
+        lengthNote = "Over 80 words";
+      } else if (wordCount >= 40) {
+        lengthNote = "Slightly below target (60-80 words)";
+      } else {
+        lengthNote = "Under length (target: 60-80 words)";
+      }
+
+      wmMetaInfo.textContent = `Exam Date: ${r.date || 'N/A'} · Tab exits: ${r.tabExitCount || 0}`;
+      wmWordBadge.textContent = `${wordCount} words · ${lengthNote}`;
+      wmContent.textContent = r.writingText && r.writingText.trim() ? r.writingText : "(No writing response submitted by student)";
+
+      wmFeedbackInput.value = r.teacherFeedback || "";
+      wmScoreInput.value = r.partScores.Writing !== undefined ? r.partScores.Writing : 0;
 
       wmSnapshotsGrid.innerHTML = '';
       if (r.snapshots && r.snapshots.length > 0) {
@@ -2881,6 +3123,297 @@ Su Su
 
       writingModal.classList.add('show');
     };
+
+    function saveCurrentWritingReview() {
+      if (!currentReviewStudentId) return null;
+      const results = getStoredResults();
+      const r = results.find(s => s.id === currentReviewStudentId);
+      if (!r) return null;
+
+      let val = parseFloat(wmScoreInput.value);
+      if (isNaN(val)) val = 0;
+      if (val < 0) val = 0;
+      if (val > 15) val = 15;
+      wmScoreInput.value = val;
+
+      r.partScores.Writing = val;
+      r.teacherFeedback = wmFeedbackInput.value.trim();
+
+      const newTotal = Math.round(Object.values(r.partScores).reduce((a, b) => a + b, 0) * 100) / 100;
+      r.total = newTotal;
+      r.percentage = Math.round((newTotal / 120) * 100);
+      r.passed = r.percentage >= 60;
+
+      updateSingleStudent(r);
+      refreshTeacherTable();
+      showToast("Writing score & feedback saved!");
+      return r;
+    }
+
+    if (wmSaveBtn) {
+      wmSaveBtn.onclick = () => {
+        saveCurrentWritingReview();
+      };
+    }
+
+    if (wmDownloadDocBtn) {
+      wmDownloadDocBtn.onclick = () => {
+        const updated = saveCurrentWritingReview();
+        if (updated) {
+          exportStudentWord(updated.id, updated);
+        }
+      };
+    }
+
+    /* Word Document (.doc) Generator with Official Logo */
+    function buildWordDocumentBody(r, logoDataUrl) {
+      const isPass = r.passed;
+      const pct = r.percentage;
+      const gradeTitle = isPass ? (pct >= 85 ? 'DISTINCTION PASS ★★★' : pct >= 75 ? 'MERIT PASS ★★' : 'PASS ✓') : 'NOT YET — KEEP PRACTICING';
+      const gradeColor = isPass ? '#2E8B57' : '#CC1111';
+      const gradeBg = isPass ? '#f0f9f3' : '#fff0f0';
+
+      const wordCount = (r.writingText || "").trim().split(/\s+/).filter(w => w.length > 0).length;
+      const feedbackText = r.teacherFeedback && r.teacherFeedback.trim() 
+        ? escapeHtml(r.teacherFeedback) 
+        : (isPass 
+            ? "Well done on completing your Elementary English examination! Continue speaking, reading, and practicing every day to strengthen your fluency."
+            : "Good effort on your exam! Focus more on grammar patterns and daily writing practice to prepare for your next attempt.");
+
+      return `
+        <table style="width:100%; border-bottom:3px solid #54289E; padding-bottom:12px; margin-bottom:18px;">
+          <tr>
+            <td style="width:90px; vertical-align:middle;">
+              <img src="${logoDataUrl}" width="80" height="80" style="width:80px; height:80px; border-radius:12px; display:block;" alt="EEK Logo" />
+            </td>
+            <td style="vertical-align:middle; padding-left:16px;">
+              <div style="font-size:19pt; font-weight:bold; color:#54289E; font-family:'Segoe UI', Calibri, Arial, sans-serif;">EASY ENGLISH WITH TR. KRISSY</div>
+              <div style="font-size:12pt; font-weight:bold; color:#f5a623; margin-top:2px;">Elementary (A2) Level Comprehensive Final Examination</div>
+              <div style="font-size:9.5pt; color:#666677; margin-top:3px;">Official Student Score Report &amp; Writing Assessment · Verification: ${escapeHtml(r.id || 'EEK2')}</div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Student Meta Information -->
+        <table style="width:100%; border-collapse:collapse; background-color:#f8f6fc; border:1px solid #dcd4ec; margin-bottom:16px;">
+          <tr>
+            <td style="padding:8px 12px; font-size:10pt; color:#555566; width:22%;"><strong>Student Name:</strong></td>
+            <td style="padding:8px 12px; font-size:11pt; color:#111122; font-weight:bold; width:30%;">${escapeHtml(r.name)}</td>
+            <td style="padding:8px 12px; font-size:10pt; color:#555566; width:20%;"><strong>Exam Date:</strong></td>
+            <td style="padding:8px 12px; font-size:10pt; color:#111122; width:28%;">${escapeHtml(r.date || new Date().toISOString().slice(0,10))}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; font-size:10pt; color:#555566;"><strong>Class / Batch:</strong></td>
+            <td style="padding:8px 12px; font-size:10.5pt; color:#111122;">${escapeHtml(r.class)}</td>
+            <td style="padding:8px 12px; font-size:10pt; color:#555566;"><strong>Time Taken:</strong></td>
+            <td style="padding:8px 12px; font-size:10pt; color:#111122;">${escapeHtml(r.timeUsed || '60 mins')} (Tab exits: ${r.tabExitCount || 0})</td>
+          </tr>
+        </table>
+
+        <!-- Overall Score Banner -->
+        <table style="width:100%; border-collapse:collapse; background-color:${gradeBg}; border:2px solid ${gradeColor}; margin-bottom:18px;">
+          <tr>
+            <td style="text-align:center; padding:14px;">
+              <div style="font-size:9.5pt; font-weight:bold; color:#555566; text-transform:uppercase; letter-spacing:1px;">Overall Examination Result</div>
+              <div style="font-size:26pt; font-weight:bold; color:${gradeColor}; margin:4px 0;">${r.percentage}% &nbsp;(${r.total} / 120 Points)</div>
+              <div style="display:inline-block; padding:4px 14px; font-size:11pt; font-weight:bold; color:#ffffff; background-color:${gradeColor}; border-radius:4px;">
+                ${gradeTitle}
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Skills Breakdown Table -->
+        <div style="font-size:11pt; font-weight:bold; color:#54289E; margin-bottom:6px;">📊 Seven Skills Performance Breakdown</div>
+        <table style="width:100%; border-collapse:collapse; margin-bottom:20px; border:1px solid #e0dced;">
+          <thead>
+            <tr style="background-color:#54289E; color:#ffffff;">
+              <th style="padding:8px 10px; text-align:left; font-size:10pt;">Skill Area</th>
+              <th style="padding:8px 10px; text-align:center; font-size:10pt;">Score Earned</th>
+              <th style="padding:8px 10px; text-align:center; font-size:10pt;">Maximum Points</th>
+              <th style="padding:8px 10px; text-align:center; font-size:10pt;">Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e0dced;">
+              <td style="padding:7px 10px; font-size:10pt;">🎧 Listening (Monologue &amp; Dialogue)</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Listening}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">20</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Listening / 20) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e0dced; background-color:#faf9fd;">
+              <td style="padding:7px 10px; font-size:10pt;">📖 Reading Comprehension</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Reading}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">25</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Reading / 25) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e0dced;">
+              <td style="padding:7px 10px; font-size:10pt;">✏️ Grammar &amp; Sentence Formation</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Grammar}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">25</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Grammar / 25) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e0dced; background-color:#faf9fd;">
+              <td style="padding:7px 10px; font-size:10pt;">📚 Vocabulary &amp; Word Knowledge</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Vocabulary}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">20</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Vocabulary / 20) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e0dced;">
+              <td style="padding:7px 10px; font-size:10pt;">🗣️ Pronunciation &amp; Word Stress</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Pronunciation}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">5</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Pronunciation / 5) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e0dced; background-color:#faf9fd;">
+              <td style="padding:7px 10px; font-size:10pt;">💬 Communication &amp; Social English</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${r.partScores.Communication}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">10</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">${Math.round((r.partScores.Communication / 10) * 100)}%</td>
+            </tr>
+            <tr style="border-bottom:2px solid #54289E;">
+              <td style="padding:7px 10px; font-size:10pt;">📝 Writing (Part 8 Email Task)</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold; color:#54289E;">${r.partScores.Writing}</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt;">15</td>
+              <td style="padding:7px 10px; text-align:center; font-size:10pt; font-weight:bold;">${Math.round((r.partScores.Writing / 15) * 100)}%</td>
+            </tr>
+            <tr style="background-color:#eee9f7; font-weight:bold;">
+              <td style="padding:8px 10px; font-size:10.5pt; color:#54289E;">TOTAL FINAL SCORE</td>
+              <td style="padding:8px 10px; text-align:center; font-size:11pt; color:#54289E;">${r.total}</td>
+              <td style="padding:8px 10px; text-align:center; font-size:10.5pt;">120</td>
+              <td style="padding:8px 10px; text-align:center; font-size:11pt; color:#54289E;">${r.percentage}%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Student's Writing Task & Assessment Section -->
+        <div style="font-size:11pt; font-weight:bold; color:#54289E; margin-bottom:6px;">✍️ Student Writing Task &amp; Assessment (Part 8)</div>
+        <div style="border:1px solid #dcd4ec; background-color:#faf9fd; padding:12px; margin-bottom:14px;">
+          <div style="font-size:9.5pt; color:#555566; margin-bottom:6px;">
+            <strong>Task Prompt:</strong> Write an email back to Daniel (60–80 words) telling him about yourself, your family or work/studies, your daily routine, and your weekend hobbies.
+          </div>
+          <div style="font-size:9pt; color:#777788; margin-bottom:8px; border-bottom:1px dashed #dcd4ec; padding-bottom:4px;">
+            <strong>Student's Submission</strong> (${wordCount} words):
+          </div>
+          <div style="font-size:10pt; line-height:1.6; font-style:italic; color:#222233; white-space:pre-wrap; background:#ffffff; padding:10px; border:1px solid #eae6f4;">${escapeHtml(r.writingText && r.writingText.trim() ? r.writingText : "(No written text submitted)")}</div>
+        </div>
+
+        <!-- Teacher's Comments & Evaluation -->
+        <div style="border:1.5px solid #FCCC06; background-color:#fffdf2; padding:12px; margin-bottom:24px;">
+          <div style="font-size:10pt; font-weight:bold; color:#b58500; margin-bottom:4px;">👩‍🏫 Teacher's Evaluation &amp; Feedback:</div>
+          <div style="font-size:10pt; line-height:1.55; color:#333333;">${feedbackText}</div>
+        </div>
+
+        <!-- Examiner Sign-off / Verification -->
+        <table style="width:100%; border-collapse:collapse; margin-top:20px; border-top:1px solid #dcd4ec; padding-top:12px;">
+          <tr>
+            <td style="width:60%; font-size:9pt; color:#666677; vertical-align:bottom;">
+              <em>Easy English with Tr. Krissy · Comprehensive Assessment System</em><br>
+              <em>Keep practicing every day — consistency is the key to English fluency!</em>
+            </td>
+            <td style="width:40%; text-align:right; vertical-align:bottom;">
+              <div style="font-size:11pt; font-weight:bold; color:#54289E;">Tr. Krissy</div>
+              <div style="font-size:9pt; color:#555566;">Lead Instructor &amp; Examiner</div>
+              <div style="font-size:8.5pt; color:#888899; margin-top:2px;">Report Issued: ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</div>
+            </td>
+          </tr>
+        </table>
+      `;
+    }
+
+    function createWordDocFile(contentHtml, title) {
+      return `
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+  <meta charset='utf-8'>
+  <title>${escapeHtml(title)}</title>
+  <!--[if gte mso 9]>
+  <xml>
+    <w:WordDocument>
+      <w:View>Print</w:View>
+      <w:Zoom>100</w:Zoom>
+      <w:DoNotOptimizeForBrowser/>
+    </w:WordDocument>
+  </xml>
+  <![endif]-->
+  <style>
+    @page {
+      size: A4;
+      margin: 1.8cm 1.8cm 1.8cm 1.8cm;
+      mso-header-margin: 36pt;
+      mso-footer-margin: 36pt;
+    }
+    body {
+      font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: #222222;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  ${contentHtml}
+</body>
+</html>
+      `;
+    }
+
+    function triggerFileDownload(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    window.exportStudentWord = function(id, directObj) {
+      const results = getStoredResults();
+      const r = directObj || results.find(s => s.id === id);
+      if (!r) {
+        alert("Student result not found.");
+        return;
+      }
+
+      getLogoDataUrl((logoUrl) => {
+        const bodyHtml = buildWordDocumentBody(r, logoUrl);
+        const fullDoc = createWordDocFile(bodyHtml, `${r.name} - Elementary Final Exam Result`);
+        const blob = new Blob(['\ufeff', fullDoc], { type: 'application/msword;charset=utf-8;' });
+        const safeName = (r.name || 'Student').replace(/[^a-zA-Z0-9_\u1000-\u109F]/g, '_');
+        triggerFileDownload(blob, `${safeName}_Elementary_Exam_Report.doc`);
+        showToast(`Word report downloaded for ${r.name}!`);
+      });
+    };
+
+    // Export All to Word (.doc) Handler
+    if (tExportWordAllBtn) {
+      tExportWordAllBtn.addEventListener('click', () => {
+        const results = getStoredResults();
+        if (results.length === 0) {
+          alert("No student results available to export.");
+          return;
+        }
+
+        getLogoDataUrl((logoUrl) => {
+          const pages = results.map(r => buildWordDocumentBody(r, logoUrl));
+          const combinedHtml = pages.join('\n<br clear="all" style="page-break-before:always; mso-break-type:page-break;" />\n');
+          const fullDoc = createWordDocFile(combinedHtml, "Tr Krissy - All Elementary Exam Results");
+          const blob = new Blob(['\ufeff', fullDoc], { type: 'application/msword;charset=utf-8;' });
+          const today = new Date().toISOString().slice(0, 10);
+          triggerFileDownload(blob, `Tr_Krissy_All_Elementary_Results_${today}.doc`);
+          showToast(`Exported all ${results.length} student reports to Word!`);
+        });
+      });
+    }
 
     // Add Result Code Handler
     tAddCodeBtn.addEventListener('click', () => {
